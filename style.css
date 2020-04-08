@@ -35,7 +35,7 @@ a {
 
 .header {
   height: 80px;
-  background-color: #5634d1;
+  background-color: #5fe1b1;
   color: #ff216a;
 }
 .header .header__wrapper {
@@ -48,7 +48,8 @@ a {
 }
 
 .main__wrapper {
-  display: flex;
+  display: block;
+  text-align: center;
 }
 .main__wrapper h2 {
   margin: 0 auto;
@@ -73,6 +74,28 @@ a {
     grid-gap: 11px 14px;
   }
 }
+.main__wrapper .main__images-container .main-card {
+  display: flex;
+  background: linear-gradient(to top, silver, white, #2ca4a5);
+  width: 220px;
+  height: 220px;
+  align-items: center;
+  flex-direction: column;
+}
+.main__wrapper .main__images-container .main-card img {
+  flex-shrink: 0;
+  border-radius: 50%;
+  transform: translate(0, -40%);
+  margin-top: 40%;
+  max-width: 60%;
+  height: 60%;
+  margin-bottom: 0;
+}
+.main__wrapper .main__images-container .main-card p {
+  margin-top: -15%;
+  font-weight: bold;
+  font-size: 18px;
+}
 
 .navigation {
   display: block;
@@ -82,16 +105,18 @@ a {
   visibility: hidden;
   top: 0;
   left: -100%;
-  width: 50vw;
+  width: 30%;
   height: 100%;
   list-style: none;
-  background-color: #28dde0;
+  background-color: #2a7a53;
   font-size: 18px;
   font-weight: bold;
   transition: all 0.5s;
+  text-align: right;
+  z-index: 2;
 }
 .navigation li {
-  margin-left: 31px;
+  margin-right: 10vw;
   margin-top: 9px;
 }
 
@@ -101,6 +126,7 @@ a {
 }
 
 .header__switch {
+  font-family: "LatoLight";
   display: flex;
   align-items: center;
   justify-content: center;
@@ -109,9 +135,80 @@ a {
   text-align: left;
   width: 80px;
   padding: 5px;
-  background-color: #ff216a;
-  border-radius: 10%;
   margin-right: 5vw;
+  height: 20px;
+}
+
+.onoffswitch {
+  position: relative;
+  width: 90px;
+}
+
+.onoffswitch-checkbox {
+  display: none;
+}
+
+.onoffswitch-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.onoffswitch-inner {
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+}
+
+.onoffswitch-inner:before,
+.onoffswitch-inner:after {
+  display: block;
+  float: left;
+  width: 50%;
+  height: 30px;
+  padding: 0;
+  line-height: 30px;
+  font-size: 14px;
+  color: #ed6e97;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+
+.onoffswitch-inner:before {
+  content: "Train";
+  padding-left: 10px;
+  background-color: #2ca4a5;
+  color: #df3186;
+}
+
+.onoffswitch-inner:after {
+  content: "Play";
+  padding-right: 10px;
+  background-color: #df3186;
+  color: #2ca4a5;
+  text-align: right;
+}
+
+.onoffswitch-switch {
+  display: block;
+  width: 18px;
+  margin: 6px;
+  background: #5fe1b1;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 56px;
+  border-radius: 100%;
+  transition: all 0.3s ease-in 0s;
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+  margin-left: 0;
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+  right: 0px;
 }
 
 .header__hamburger {
@@ -131,7 +228,7 @@ a {
   height: 30px;
 }
 .header__hamburger-bar span {
-  background-color: #ff216a;
+  background-color: #df3186;
   display: block;
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.3);
   border-radius: 3px;
