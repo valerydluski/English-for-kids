@@ -1,5 +1,6 @@
 let pageStatus = {
     pageMode: 'train',
+    categori: 'Main Page',
 }
 const imagesMainPage = ['fish.jpg','open.jpg','fly.jpg','open.jpg','chicken.jpg','bird.jpg','blouse.jpg','smile.jpg'];
 const categories = ['Main Page','Action (set A)','Action (set B)','Action (set C)','Adjective','Animal (set A)','Animal (set B)','Clothes','Emotion']
@@ -24,7 +25,6 @@ const changeCardsBackground = (element) =>{
     console.log(element.classList, pageStatus.pageMode);
 
     if (pageStatus.pageMode === 'train'){
-        console.log('меняй сука')
         element.classList.remove('main-card_train');
         element.classList.add('main-card_play');
     }
@@ -74,36 +74,17 @@ const createCard = (element, typeCard, index) => {
 
 const createCardImage = (element, card) =>{
         let image = document.createElement('img');
-        image.src = `../assets/img/${element}`
+        image.src = `/src/assets/img/${element}`
         card.append(image)
 } 
 
 const addCards = (array, typeCard, mode) =>{
-    if(mainImages.querySelector('.main-card')){
-        console.log('есть')
-    }
     let index = 1;
     array.forEach(element => {
         createCard(element, typeCard, index, mode);
         index +=1;  
     });
 }
-console.log('hello');
-//sript for hamburger
-const hamburger = document.getElementById('hamburger');
-
-hamburger.addEventListener('click', () => {
-		if (hamburger.classList[1] == 'active') {
-         hamburger.classList.remove('active');
-         hamburger.classList.add('not-active');
-         navigation.classList.remove('navigation-active');
-		}
-		else{
-         hamburger.classList.remove('not-active');
-         hamburger.classList.add('active');
-         navigation.classList.add('navigation-active');
-		}		
-})
 
 window.onload = () => {
     addCards(imagesMainPage);
