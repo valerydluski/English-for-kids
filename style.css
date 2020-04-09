@@ -76,7 +76,6 @@ a {
 }
 .main__wrapper .main__images-container .main-card {
   display: flex;
-  background: linear-gradient(to top, silver, white, #2ca4a5);
   width: 220px;
   height: 220px;
   align-items: center;
@@ -97,6 +96,14 @@ a {
   font-size: 18px;
 }
 
+.main-card_train {
+  background: linear-gradient(to top, silver, white, #2a7a53);
+}
+
+.main-card_play {
+  background: linear-gradient(to top, silver, white, #ffff40);
+}
+
 .navigation {
   display: block;
   margin: 0 auto;
@@ -108,7 +115,6 @@ a {
   width: 30%;
   height: 100%;
   list-style: none;
-  background-color: #2a7a53;
   font-size: 18px;
   font-weight: bold;
   transition: all 0.5s;
@@ -123,6 +129,14 @@ a {
 .navigation-active {
   visibility: visible;
   left: 0;
+}
+
+.navigation_train {
+  background-color: #2a7a53;
+}
+
+.navigation_play {
+  background-color: #ffff40;
 }
 
 .header__switch {
@@ -170,7 +184,7 @@ a {
   padding: 0;
   line-height: 30px;
   font-size: 14px;
-  color: #ed6e97;
+  color: #ffff40;
   font-weight: bold;
   box-sizing: border-box;
 }
@@ -178,15 +192,15 @@ a {
 .onoffswitch-inner:before {
   content: "Train";
   padding-left: 10px;
-  background-color: #2ca4a5;
-  color: #df3186;
+  background-color: #2a7a53;
+  color: #ffff40;
 }
 
 .onoffswitch-inner:after {
   content: "Play";
   padding-right: 10px;
-  background-color: #df3186;
-  color: #2ca4a5;
+  background-color: #ffff40;
+  color: #2a7a53;
   text-align: right;
 }
 
@@ -194,7 +208,7 @@ a {
   display: block;
   width: 18px;
   margin: 6px;
-  background: #5fe1b1;
+  background: #df3186;
   position: absolute;
   top: 0;
   bottom: 0;
