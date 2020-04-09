@@ -4,6 +4,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+
+
 module.exports = (env, options) => {
     const isProduction = options.mode === 'production';
 
@@ -11,7 +13,7 @@ module.exports = (env, options) => {
         mode: isProduction ? 'production' : 'development',
         devtool: isProduction ? 'none' : 'source-map',
         watch: !isProduction,
-        entry: ['./src/index.js', './src/sass/style.scss'],
+        entry: ['./src/index.js', './src/sass/style.scss', ],
         output: {
             path: path.join(__dirname, '/dist'),
             filename: 'script.js',
@@ -50,13 +52,24 @@ module.exports = (env, options) => {
         plugins: [
             new CleanWebpackPlugin(),
             new HtmlWebpackPlugin({
-                template: 'index.html'
+                hash: false,
+                template: 'index.html', 
+                filename: 'index.html',
+            }),
+            new HtmlWebpackPlugin({
+                hash: false,
+                template: 'train.html', 
+                filename: 'train.html',
+            }),
+            new HtmlWebpackPlugin({
+                hash: false,
+                template: 'play.html', 
+                filename: 'play.html',
             }),
             new MiniCssExtractPlugin({
                 filename: 'style.css'
             })
         ]
     }
-
     return config;
 }

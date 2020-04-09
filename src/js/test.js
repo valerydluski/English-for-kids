@@ -22,7 +22,6 @@ const navigationChangeBackground = () =>{
 };
 
 const changeCardsBackground = (element) =>{
-    console.log(element.classList, pageStatus.pageMode);
 
     if (pageStatus.pageMode === 'train'){
         element.classList.remove('main-card_train');
@@ -34,12 +33,26 @@ const changeCardsBackground = (element) =>{
     }
    
 }
+
+const changeLinks = (str) =>{
+    let navigationLinks = navigation.querySelectorAll('a');
+    navigationLinks.forEach(element => {
+        if (!(element.href.includes('index'))){
+            element.href =`${str}.html`;
+        }
+        
+    });
+    
+}
+
 const changePageMode = (mode) =>{
     if(mode){
-        pageStatus.pageMode = 'train'; 
+        pageStatus.pageMode = 'train';
+        changeLinks('train'); 
     }
     else{
         pageStatus.pageMode = 'play';
+        changeLinks('play'); 
     }
 }
 

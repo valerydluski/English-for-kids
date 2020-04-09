@@ -99,6 +99,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_test__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_js_test__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _js_hamburger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/hamburger */ "./src/js/hamburger.js");
 /* harmony import */ var _js_hamburger__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_js_hamburger__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _js_changeLink__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/changeLink */ "./src/js/changeLink.js");
+/* harmony import */ var _js_changeLink__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_js_changeLink__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+/***/ }),
+
+/***/ "./src/js/changeLink.js":
+/*!******************************!*\
+  !*** ./src/js/changeLink.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 
 
@@ -158,8 +172,6 @@ var navigationChangeBackground = function navigationChangeBackground() {
 };
 
 var changeCardsBackground = function changeCardsBackground(element) {
-  console.log(element.classList, pageStatus.pageMode);
-
   if (pageStatus.pageMode === 'train') {
     element.classList.remove('main-card_train');
     element.classList.add('main-card_play');
@@ -169,11 +181,22 @@ var changeCardsBackground = function changeCardsBackground(element) {
   }
 };
 
+var changeLinks = function changeLinks(str) {
+  var navigationLinks = navigation.querySelectorAll('a');
+  navigationLinks.forEach(function (element) {
+    if (!element.href.includes('index')) {
+      element.href = "".concat(str, ".html");
+    }
+  });
+};
+
 var changePageMode = function changePageMode(mode) {
   if (mode) {
     pageStatus.pageMode = 'train';
+    changeLinks('train');
   } else {
     pageStatus.pageMode = 'play';
+    changeLinks('play');
   }
 };
 
