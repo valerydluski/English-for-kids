@@ -1,10 +1,10 @@
-
-let pageStatus = {
+import {firstPage} from './changeCategorie';
+export let pageStatus = {
     pageMode: 'train',
     categori: 'Main Page',
 }
 
-const saveState = () => {
+export const saveState = () => {
     localStorage.setItem('pageMode', pageStatus.pageMode);
     localStorage.setItem('categori', pageStatus.categori);
   };
@@ -14,7 +14,7 @@ const saveState = () => {
     pageStatus.categori =  (localStorage.getItem('categori')) ? localStorage.getItem('categori') : pageStatus.categori;
   };
 
-const pagesData = {
+export const pagesData = {
     'categories': ['Main Page','Action (set A)','Action (set B)','Action (set C)','Adjective','Animal (set A)','Animal (set B)','Clothes','Emotion'],
     'Main Page': [['dance.jpg','open.jpg','play.jpg','open.jpg','bird.jpg','chicken.jpg','blouse.jpg','happy.jpg'],
                 ['Action (set A)','Action (set B)','Action (set C)','Adjective','Animal (set A)','Animal (set B)','Clothes','Emotion']],
@@ -41,7 +41,6 @@ const navigation = document.getElementById('navigation');
 const navigationLinks = navigation.querySelectorAll('a');
 //script for switcher
 const switcher = document.getElementById('myonoffswitch');
-//const allLinks = document.querySelectorAll('a');
 
 const checkStatusSwitcer = () => {
     
@@ -174,7 +173,7 @@ const deleteCards = () =>{
       } 
 }
 
-const addMainCards = (array, textForCardArr, mode) =>{
+export const addMainCards = (array, textForCardArr, mode) =>{
         if (mainImages.childNodes.length>0){
             deleteCards();
         }
@@ -186,44 +185,8 @@ const addMainCards = (array, textForCardArr, mode) =>{
     });
 }
 
-
-
-//change categori
-navigation.addEventListener('click', (event) =>{
-    if(event.target.classList.contains('navigation__link')){
-        changeCategori(event.target.textContent);
-        navigation.classList.remove('navigation-active');
-        hamburger.classList.remove('active');
-    }
-    addMainCards(pagesData[`${pageStatus.categori}`][0], pagesData[`${pageStatus.categori}`][1], pageStatus.pageMode);
-});
-
-mainImages.addEventListener('mousedown', (event) =>{
-    if(event.target.classList.contains('main-card')){
-        changeCategori(event.target.textContent)
-    }
-    if(event.target.parentElement.classList.contains('main-card')){
-        changeCategori(event.target.parentElement.textContent)
-    }
-})
-const changeCategori = (str) =>{
-    console.log(str)
-    pageStatus.categori = str;
-    saveState();
-}
-
-const firstPage = () =>{
-    if (!checkActivePage()){
-        pageStatus.categori  = 'Main Page';
-        pageStatus.pageMode = 'train';
-        saveState();
-    }
-} 
-
-
-
 window.onload = () => {
-    firstPage(); 
+    firstPage; 
     restoreState();
     checkStatusSwitcer();
     addMainCards(pagesData[`${pageStatus.categori}`][0], pagesData[`${pageStatus.categori}`][1], pageStatus.pageMode);

@@ -1,0 +1,17 @@
+.header{
+    height: 80px;
+    background-color: $color-background-1;
+    color: $color-font-1;
+
+   
+
+.header__wrapper{   
+    align-items: center;
+    display: flex;
+    justify-content: space-between; 
+    
+    h1{
+        visibility: hidden;
+    }
+}
+}

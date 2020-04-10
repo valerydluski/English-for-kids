@@ -1,0 +1,124 @@
+.main__wrapper{
+    display: block; 
+    text-align: center;
+    h2{
+        margin: 0 auto;
+    }  
+    .main__images-container{
+        margin: 0 auto;
+        display: grid;
+        grid-template-areas: 
+        "a a a a"
+        "a a a a";
+        grid-gap: 17px 20px;
+        margin: 18px 40px 0px 40px;
+
+        @media (max-width: 1019px) {
+            grid-template-areas: 
+            "a a"
+            "a a"
+            "a a"
+            "a a";
+            margin: 27px 40px 0px 40px;
+         }
+    
+         @media(max-width: (($tablet-width)-1px)) {
+            grid-template-areas: 
+            "a"
+            "a"
+            "a"
+            "a"
+            "a"
+            "a"
+            "a"
+            "a";
+            margin: 25px 30px 33px 30px;
+            grid-gap: 11px 14px;
+         }
+        
+         .main-card{
+            display: flex; 
+            
+            width: 220px;
+            height: 220px;
+            align-items: center;
+            flex-direction: column;
+            img{
+                flex-shrink: 0;
+                border-radius: 50%;
+                transform: translate(0, -40%);
+                margin-top: 40%;
+                max-width: 60%;
+                height: 60%;
+                margin-bottom: 0;
+            }
+
+            p{
+                margin-top: -15%;
+                font-weight: bold;
+                font-size: 18px;
+            }
+         }
+
+         .train-card{
+            display: flex; 
+            width: 220px;
+            height: 220px;
+            align-items: center;
+            flex-direction: column;
+            background-color: $color-background-1;
+            img{
+                flex-shrink: 0;
+                max-width: 100%;
+                height: 80%;
+            }
+
+            p{
+                margin-top: 5%;
+                font-weight: bold;
+                font-size: 18px;
+            }
+         }
+
+         .play-card{
+            display: flex; 
+            width: 220px;
+            height: 220px;
+            align-items: center;
+            flex-direction: column;
+            background-color: $color-background-1;
+            img{
+                flex-shrink: 0;
+                max-width: 100%;
+                height: 100%;
+            }
+
+            p{
+                visibility: hidden;
+                margin-top: 5%;
+                font-weight: bold;
+                font-size: 18px;
+            }
+         }
+    }
+}
+
+.main-card_train{
+    background: linear-gradient(to top, silver, white, $color-background-2);
+}
+
+.main-card_play{
+    background: linear-gradient(to top, silver, white, $color-background-5);
+}
+
+.main-card:hover{
+    box-shadow: 10px 10px 10px 10px rgba(0, 0, 255, .2); 
+}
+
+.train-card:hover{
+    box-shadow: 10px -10px 10px 10px rgba(7, 199, 93, 0.2); 
+}
+
+.play-card:hover{
+    box-shadow: -10px -10px 10px 10px rgba(236, 221, 11, 0.863); 
+}

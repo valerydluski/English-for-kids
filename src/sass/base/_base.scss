@@ -1,0 +1,43 @@
+
+html {
+  scroll-behavior: smooth;
+}
+
+body{
+    font-family: "latoLight";
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+  }
+
+h1{
+  font-family: 'LatoBold';
+  font-size: 24px;
+  font-weight: 900;
+
+}
+
+h2{
+  font-family: "LatoBlack";
+  font-size: 30px;
+  font-weight: 900;
+}
+
+h3{
+  font-family: "LatoBlack";
+  font-size: 18px;
+  font-weight: 900;
+}
+
+p,
+a{
+  text-decoration: none;
+  color: $color-font-1; 
+}
+
+a:hover{
+  color:rgb(87, 35, 139);
+  cursor: pointer;
+  
+}
+

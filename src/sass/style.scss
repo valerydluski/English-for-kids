@@ -1,0 +1,42 @@
+//@import "../node_modules/normalize.css/normalize.css";
+
+@import "abstract/constants";
+@import "base/base";
+@import "components/header";
+@import "components/main";
+@import "components/navigation";
+@import "components/switches";
+@import "components/hamburger";
+@import "layouts/wrapper";
+
+
+    @font-face { 
+    font-family: 'LatoBlack'; 
+    src: url('/src/assets/fonts/lato/Lato-Black.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    }
+    @font-face { 
+    font-family: 'LatoBold'; 
+    src: url('/src/assets/fonts/lato/Lato-Bold.ttf') format('truetype');
+    font-weight: normal; 
+    font-style: normal;
+    }
+    @font-face { 
+    font-family: 'LatoLight'; 
+    src: url('/src/assets/fonts/lato/Lato-Light.ttf') format('truetype');
+    font-weight: normal; 
+    font-style: normal;
+    }
+    @font-face { 
+    font-family: 'LatoRegular'; 
+    src: url('/src/assets/fonts/lato/Lato-Regular.ttf') format('truetype');
+    font-weight: normal; 
+    font-style: normal;
+    }
+    @font-face { 
+    font-family: 'LatoThin'; 
+    src: url('/src/assets/fonts/lato/Lato-Thin.ttf') format('truetype');
+    font-weight: normal; 
+    font-style: normal;
+    }

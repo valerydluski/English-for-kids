@@ -1,0 +1,34 @@
+.navigation{
+    display: block;
+    margin: 0 auto;
+    padding-top: 80px;
+    position: fixed;
+    visibility: hidden;
+    top: 0;
+    left: -100%;
+    width: 30%;
+    height: 100%; 
+    list-style: none;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 1s;  
+    text-align: right;
+    z-index: 2;
+    li{
+        margin-right: 10vw;
+        margin-top: 9px;
+    }
+}
+
+.navigation-active {
+    visibility: visible;
+    left: 0;
+  }
+
+.navigation_train{
+    background-color: $color-background-2;
+}
+
+.navigation_play{
+    background-color: $color-background-5;
+}  
