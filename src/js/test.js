@@ -1,3 +1,4 @@
+
 let pageStatus = {
     pageMode: 'train',
     categori: 'Main Page',
@@ -13,14 +14,30 @@ const saveState = () => {
     pageStatus.categori =  (localStorage.getItem('categori')) ? localStorage.getItem('categori') : pageStatus.categori;
   };
 
+const pagesData = {
+    'categories': ['Main Page','Action (set A)','Action (set B)','Action (set C)','Adjective','Animal (set A)','Animal (set B)','Clothes','Emotion'],
+    'Main Page': [['fish.jpg','open.jpg','fly.jpg','open.jpg','chicken.jpg','bird.jpg','blouse.jpg','smile.jpg'],
+                ['Action (set A)','Action (set B)','Action (set C)','Adjective','Animal (set A)','Animal (set B)','Clothes','Emotion']],
+    'Action (set A)': [['cry.jpg','dance.jpg','dive.jpg','draw.jpg','fish.jpg','jump.jpg','laugh.jpg', 'open.jpg'],
+    ['cry.jpg','dance.jpg','dive.jpg','draw.jpg','fish.jpg','jump.jpg','laugh.jpg', 'open.jpg']],            
+}
 
-const imagesMainPage = ['fish.jpg','open.jpg','fly.jpg','open.jpg','chicken.jpg','bird.jpg','blouse.jpg','smile.jpg'];
-const categories = ['Main Page','Action (set A)','Action (set B)','Action (set C)','Adjective','Animal (set A)','Animal (set B)','Clothes','Emotion']
 const mainImages = document.getElementById('main-images');
 const navigation = document.getElementById('navigation');
-
+const navigationLinks = navigation.querySelectorAll('a');
 //script for switcher
 const switcher = document.getElementById('myonoffswitch');
+//const allLinks = document.querySelectorAll('a');
+
+const checkStatusSwitcer = () => {
+    
+    if (pageStatus.pageMode === 'train'){
+        switcher.checked = true;
+    }
+    else {
+        switcher.checked = false;
+    }
+}
 
 const navigationChangeBackground = () =>{
     let NavigationClassList =  navigation.classList;
@@ -35,7 +52,6 @@ const navigationChangeBackground = () =>{
 };
 
 const changeCardsBackground = (element) =>{
-
     if (pageStatus.pageMode === 'play'){
         element.classList.remove('main-card_train');
         element.classList.add('main-card_play');
@@ -48,7 +64,6 @@ const changeCardsBackground = (element) =>{
 }
 
 const changeLinks = (str) =>{
-    let navigationLinks = navigation.querySelectorAll('a');
     let mainImagesLinks = mainImages.querySelectorAll('a');
     navigationLinks.forEach(element => {
         if (!(element.href.includes('index'))){
@@ -61,6 +76,14 @@ const changeLinks = (str) =>{
 }
 
 const changePageMode = (mode) =>{
+    if (window.location.href.includes('train') || window.location.href.includes('play')){
+        if(window.location.href.includes('train')){
+            window.location.href = 'play.html'
+        }
+        else{
+            window.location.href = 'train.html'
+        }
+    }
     if(mode){
         pageStatus.pageMode = 'train';
         saveState();
@@ -76,7 +99,6 @@ const changePageMode = (mode) =>{
 
 const modeSwitch = (mode) =>{
     changePageMode(mode);  
-    console.log(switcher.checked)
     navigationChangeBackground();
     let cards = mainImages.querySelectorAll('.main-card');
     cards.forEach(element => {
@@ -93,7 +115,7 @@ switcher.addEventListener('click', () =>{
 const createCardText = (card, index) => {
     let text = document.createElement('p');
     card.append(text);
-    text.textContent = `${categories[index]}`;
+    text.textContent = `${pagesData['categories'][index]}`;
 }
 
 const createCardImage = (element, card) =>{
@@ -105,7 +127,7 @@ const createCardImage = (element, card) =>{
 const createMainCard = (element, typeCard, index) => {
         let card = document.createElement('a');
         card.className = 'main-card';
-        card.classList.add('main-card_train');
+        card.classList.add(`main-card_${pageStatus.pageMode}`);
         card.href = `${pageStatus.pageMode}.html`;
         mainImages.append(card);
         createCardImage(element, card);
@@ -120,19 +142,34 @@ const addMainCards = (array, typeCard, mode) =>{
     });
 }
 
-const checkStatusSwitcer = () => {
-    console.log(switcher.checked);
-    if (pageStatus.pageMode === 'train'){
-        switcher.checked = true;
+
+
+//change categori
+navigation.addEventListener('click', (event) =>{
+    if(event.target.classList.contains('navigation__link')){
+        changeCategori(event.target.textContent)
     }
-    else {
-        switcher.checked = false;
+});
+
+mainImages.addEventListener('mousedown', (event) =>{
+    if(event.target.classList.contains('main-card')){
+        changeCategori(event.target.textContent)
     }
+    if(event.target.parentElement.classList.contains('main-card')){
+        changeCategori(event.target.parentElement.textContent)
+    }
+})
+const changeCategori = (str) =>{
+    console.log(str)
+    pageStatus.categori = str;
+    saveState();
 }
+
+
 
 window.onload = () => {
     restoreState();  
     checkStatusSwitcer();
-    addMainCards(imagesMainPage);
-    navigationChangeBackground();
+    addMainCards(pagesData[`${pageStatus.categori}`][0]);
+    navigationChangeBackground();  
   };
