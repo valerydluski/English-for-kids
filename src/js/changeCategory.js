@@ -10,8 +10,9 @@ navigation.addEventListener('mousedown', (event) =>{
         if (window.location.href != event.target.href){
             window.location.href = event.target.href;
         }
-   
-        addMainCards(pagesData[`${pageStatus.category}`][0], pagesData[`${pageStatus.category}`][1], pageStatus.pageMode); 
+        console.log(pageStatus.category)
+        console.log(pagesData[`${pageStatus.category}`][0], pagesData[`${pageStatus.category}`][1], pageStatus.pageMode, pagesData[`${pageStatus.category}`][2])
+        addMainCards(pagesData[`${pageStatus.category}`][0], pagesData[`${pageStatus.category}`][1], pageStatus.pageMode, pagesData[`${pageStatus.category}`][2]); 
         activeLink();
 
         
@@ -39,4 +40,3 @@ export const firstPage = () =>{
         saveState();
     }
 } 
-
