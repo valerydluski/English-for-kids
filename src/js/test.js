@@ -1,17 +1,19 @@
-import {firstPage} from './changeCategorie';
+import {hamburger} from './hamburger';
+import {firstPage} from './changeCategory';
+
 export let pageStatus = {
-    pageMode: 'train',
-    categori: 'Main Page',
+    pageMode: '',
+    category: '',
 }
 
-export const saveState = () => {
+export let saveState = () => {
     localStorage.setItem('pageMode', pageStatus.pageMode);
-    localStorage.setItem('categori', pageStatus.categori);
+    localStorage.setItem('category', pageStatus.category);
   };
   
-  const restoreState = () => {
-    pageStatus.pageMode = (localStorage.getItem('pageMode')) ? localStorage.getItem('pageMode') : pageStatus.pageMode;
-    pageStatus.categori =  (localStorage.getItem('categori')) ? localStorage.getItem('categori') : pageStatus.categori;
+  export let restoreState = () => {
+    pageStatus.pageMode = (localStorage.getItem('pageMode')) ? localStorage.getItem('pageMode') : 'train';
+    pageStatus.category =  (localStorage.getItem('category')) ? localStorage.getItem('category') : 'Main Page';
   };
 
 export const pagesData = {
@@ -19,26 +21,35 @@ export const pagesData = {
     'Main Page': [['dance.jpg','open.jpg','play.jpg','open.jpg','bird.jpg','chicken.jpg','blouse.jpg','happy.jpg'],
                 ['Action (set A)','Action (set B)','Action (set C)','Adjective','Animal (set A)','Animal (set B)','Clothes','Emotion']],
     'Action (set A)': [['cry.jpg','dance.jpg','dive.jpg','draw.jpg','sit.jpg','jump.jpg','laugh.jpg', 'fly.jpg'],
-    ['cry','dance','dive','draw','sit','jump','laugh', 'fly']],
+    ['cry','dance','dive','draw','sit','jump','laugh', 'fly'],
+    ['cry.mp3','','','','','','','']],
+    
     'Action (set B)': [['open.jpg', 'point.jpg', 'skip.jpg', 'smile.jpg', 'ride.jpg','swim.jpg','sing.jpg','eat.jpg'],
-                      ['open', 'point', 'skip', 'smile', 'ride','swim','sing','eat']],
+                      ['open', 'point', 'skip', 'smile', 'ride','swim','sing','eat']
+                      ['','','','','','','','']],
     'Action (set C)': [['play.jpg','build.jpg','break.jpg','hit.jpg','cut.jpg','walk.jpg','read.jpg','hug.jpg'],
-                        ['play','build','break','hit','cut','walk','read','hug']],
+                        ['play','build','break','hit','cut','walk','read','hug']
+                        ['','','','','','','','']],
     'Adjective': [['cold.jpg','dirty.jpg','big.jpg','little.jpg','long.jpg','sweet.jpg','hot.jpg','funny.jpg'],
-                    ['cold','dirty','big','little','long','sweet','hot','funny']],
+                    ['cold','dirty','big','little','long','sweet','hot','funny']
+                    ['','','','','','','','']],
     'Animal (set A)': [['bird.jpg','cat.jpg','chick.jpg','dog.jpg','dolphin.jpg','fish.jpg','frog.jpg','giraffe.jpg'],
-                    ['bird','cat','chick','dog','dolphin','fish','frog','giraffe']],   
+                    ['bird','cat','chick','dog','dolphin','fish','frog','giraffe']
+                    ['','','','','','','','']],   
     'Animal (set B)': [['chicken.jpg','horse.jpg','lion.jpg','mouse.jpg','pig.jpg','rabbit.jpg','sheep.jpg','turtle.jpg'],
-                    ['chicken','horse','lion','mouse','pig','rabbit','sheep','turtle']],   
+                    ['chicken','horse','lion','mouse','pig','rabbit','sheep','turtle']
+                    ['','','','','','','','']],   
     'Clothes': [['blouse.jpg','boot.jpg','coat.jpg','dress.jpg','shirt.jpg','shoe.jpg','skirt.jpg','pants.jpg'],
-                    ['blouse','boot','coat','dress','shirt','shoe','skirt','pants']],
+                    ['blouse','boot','coat','dress','shirt','shoe','skirt','pants']
+                    ['','','','','','','','']],
     'Emotion': [['angry.jpg','happy.jpg','sad.jpg','scared.jpg','tired.jpg','surprised.jpg','regret.jpg','shy.jpg'],
-                    ['angry','happy','sad','scared','tired','surprised','regret','shy']],                                                                                      
+                    ['angry','happy','sad','scared','tired','surprised','regret','shy']
+                    ['','','','','','','','']],                                                                                      
 }
-
+const categoryText = document.getElementById('categoryText');
 const mainImages = document.getElementById('main-images');
 const navigation = document.getElementById('navigation');
-const navigationLinks = navigation.querySelectorAll('a');
+export const navigationLinks = navigation.querySelectorAll('a');
 //script for switcher
 const switcher = document.getElementById('myonoffswitch');
 
@@ -88,7 +99,7 @@ const changeLinks = (str) =>{
     }); 
 }
 
-const checkActivePage = () =>{
+export const checkActivePage = () =>{
     if (window.location.href.includes('train') || window.location.href.includes('play')){
         return true;
     }
@@ -147,9 +158,8 @@ const createCardImage = (element, card) =>{
 } 
 
 const createMainCard = (element, textForCard, mode) => {
-        
+    categoryText.textContent = `${pageStatus.category}`   
         if (checkActivePage()){
-            console.log('я только начал', mode)
             let wordCard = document.createElement('div')
             wordCard.className = `${mode}-card`;
             mainImages.append(wordCard);
@@ -185,10 +195,20 @@ export const addMainCards = (array, textForCardArr, mode) =>{
     });
 }
 
+export const activeLink = () =>{
+    navigationLinks.forEach(element => {
+        element.classList.remove('link_active');
+        if(element.textContent === pageStatus.category){
+           element.classList.add('link_active')
+        }
+    });
+}
+
 window.onload = () => {
-    firstPage; 
     restoreState();
+    firstPage(); 
     checkStatusSwitcer();
-    addMainCards(pagesData[`${pageStatus.categori}`][0], pagesData[`${pageStatus.categori}`][1], pageStatus.pageMode);
-    navigationChangeBackground();  
+    addMainCards(pagesData[`${pageStatus.category}`][0], pagesData[`${pageStatus.category}`][1], pageStatus.pageMode);
+    navigationChangeBackground(); 
+    activeLink();
   };

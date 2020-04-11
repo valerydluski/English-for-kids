@@ -1,15 +1,15 @@
 //sript for hamburger
-window.addEventListener('mouseup', function(event){
-	    if(event.target != navigation && event.target.parentNode != navigation && event.target != hamburger){
+window.addEventListener('mousedown', function(event){
+	    if(event.target != navigation && event.target.parentNode != navigation && event.target != hamburger && event.target.parentNode != hamburger){
             hamburger.classList.remove('active');
             hamburger.classList.add('not-active');
             navigation.classList.remove('navigation-active');
 	    }
 	});
 
-const hamburger = document.getElementById('hamburger');
+export const hamburger = document.getElementById('hamburger');
 
-hamburger.addEventListener('click', () => {
+hamburger.addEventListener('mousedown', () => {
 		if (hamburger.classList[1] == 'active') { 
          hamburger.classList.remove('active');
          hamburger.classList.add('not-active');
