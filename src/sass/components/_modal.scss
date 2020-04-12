@@ -12,11 +12,18 @@
 
 .modal {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 10px;
     background-color: $color-light;
     width: 70%;
     height: 70%;
     overflow: auto;
+    flex-direction: column;
+    h2{
+        color: $color-background-1;
+    }
 }
 
 .modal__close-icon {

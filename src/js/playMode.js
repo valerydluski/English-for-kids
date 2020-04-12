@@ -1,8 +1,48 @@
 // script for play mode
 import { audioCollection, pageStatus } from './main';
 
-
+let wrapper = document.getElementById('wrapper');
+const buttonPlay = document.createElement('img');
+const buttonRepeat = document.createElement('img');
 let currentAudio;
+const indicator = document.createElement('div');
+let mistakesCounter;
+const modal = document.createElement('div');
+
+const playAudioForGame = (audio) => {
+  const audioGame = new Audio();
+  audioGame.src = `${audio}`;
+  audioGame.autoplay = true;
+};
+
+const repeatWord = () => {
+  playAudioForGame(currentAudio);
+};
+
+buttonRepeat.addEventListener('mousedown', () => {
+  repeatWord(currentAudio);
+});
+const createButtonRepeat = () => {
+  buttonRepeat.className = 'button_play';
+  buttonRepeat.classList.add('button_hidden');
+  buttonRepeat.src = '/src/assets/img/repeat.png';
+  wrapper.append(buttonRepeat);
+};
+
+const createIndicatePanel = () => {
+  indicator.className = 'indicator';
+  wrapper.append(indicator);
+};
+
+export const createButtonPlay = () => {
+  createIndicatePanel();
+  buttonPlay.className = 'button_play';
+  buttonPlay.src = '/src/assets/img/play.png';
+  wrapper.append(buttonPlay);
+  createButtonRepeat();
+  buttonPlay.addEventListener('click', startPlay);
+};
+
 
 export const createAudioForPlay = (str) => {
   audioCollection.push(`https://wooordhunt.ru//data/sound/word/us/mp3/${str}.mp3`);
@@ -15,26 +55,35 @@ const shuffleAudioCollection = () => {
   }
 };
 
-const playAudioForGame = (currentAudio) => {
-  const audioGame = new Audio();
-  audioGame.src = `${currentAudio}`;
-  audioGame.autoplay = true;
-};
 
 const closeModal = (event) => {
   const classes = event.target.classList;
   if (classes.contains('overlay') || classes.contains('modal__close-icon')) {
     document.querySelector('.overlay').remove();
   }
+  window.location.href = 'index.html';
+};
+
+const createModalContent = () => {
+  const modalImage = document.createElement('img');
+  let str;
+  const modalText = document.createElement('h2');
+  modalText.textContent = `You made ${mistakesCounter} mistake(s)`;
+  if (mistakesCounter === 0) {
+    str = 'good';
+  } else {
+    modal.append(modalText);
+    str = 'bad';
+  }
+  modalImage.src = `/src/assets/img/${str}.png`;
+  modal.append(modalImage);
 };
 
 const createGameOverWindow = () => {
   const overlay = document.createElement('div');
   overlay.className = 'overlay';
-  const wrapper = document.getElementById('wrapper');
-  console.log(wrapper);
+  wrapper = document.getElementById('wrapper');
   wrapper.append(overlay);
-  const modal = document.createElement('div');
   modal.className = 'modal';
   overlay.append(modal);
   const closeButton = document.createElement('img');
@@ -42,12 +91,16 @@ const createGameOverWindow = () => {
   closeButton.src = '/src/assets/img/close.png';
   modal.append(closeButton);
   overlay.addEventListener('click', closeModal);
+  createModalContent();
 };
 
 const gameOver = () => {
+  if (mistakesCounter === 0) {
+    playAudioForGame('https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/rslang/english-for.kids.data/audio/success.mp3');
+  } else {
+    playAudioForGame('https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/rslang/english-for.kids.data/audio/failure.mp3');
+  }
   createGameOverWindow();
-  playAudioForGame('https://wooordhunt.ru//data/sound/word/us/mp3/game.mp3');
-  setTimeout(() => playAudioForGame('https://wooordhunt.ru//data/sound/word/us/mp3/over.mp3'), 1000);
 };
 
 const audioChoice = () => {
@@ -59,19 +112,48 @@ const audioChoice = () => {
   }
 };
 
-const checkAnswer = (target) => {
-  if (currentAudio.includes(target)) {
-    audioChoice(audioCollection);
+const addAnswerIndicator = (bool) => {
+  let typeAnswer;
+  if (bool) {
+    typeAnswer = 'correct';
+  } else {
+    typeAnswer = 'notcorrect';
+  }
+  if (indicator.childElementCount > 7) {
+    indicator.firstChild.remove();
+  }
+  const answerIndicator = document.createElement('img');
+  answerIndicator.className = 'answer';
+  answerIndicator.src = `/src/assets/img/${typeAnswer}.png`;
+  indicator.append(answerIndicator);
+};
+
+const checkAnswer = (id, target) => {
+  if (target.classList.contains('innactive-card')) {
+    return;
+  }
+  if (currentAudio.includes(id)) {
+    addAnswerIndicator(true);
+    playAudioForGame('https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/rslang/english-for.kids.data/audio/correct.mp3');
+    setTimeout(() => audioChoice(audioCollection), 1000);
+    target.classList.add('innactive-card');
+  } else {
+    mistakesCounter += 1;
+    addAnswerIndicator(false);
+    playAudioForGame('https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/rslang/english-for.kids.data/audio/error.mp3');
   }
 };
 
 export const listenerForPlayCards = (card) => {
   card.addEventListener('click', (event) => {
-    checkAnswer(event.target.id);
+    checkAnswer(event.target.id, event.target);
   });
 };
 
 export const startPlay = (audioCollection) => {
   shuffleAudioCollection(audioCollection);
+  mistakesCounter = 0;
+  buttonPlay.classList.add('button_hidden');
+  buttonRepeat.classList.remove('button_hidden');
   audioChoice(audioCollection);
 };

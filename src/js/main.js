@@ -1,6 +1,6 @@
 import { firstPage } from './changeCategory';
 import { listenerForCards } from './trainMode';
-import { listenerForPlayCards, createAudioForPlay, startPlay } from './playMode';
+import { listenerForPlayCards, createAudioForPlay, createButtonPlay } from './playMode';
 
 export const pageStatus = {
   pageMode: '',
@@ -229,7 +229,9 @@ export const addMainCards = (array, textForCardArr, mode, textForTranslateArr) =
       index += 1;
     }
   });
-  startPlay(audioCollection);
+  if (pageStatus.category !== 'Main Page' && mode === 'play'){
+    createButtonPlay();
+  }
 };
 // active link
 export const activeLink = () => {
