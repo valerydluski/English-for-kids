@@ -1,5 +1,6 @@
 import { firstPage } from './changeCategory';
 import { listenerForCards } from './trainMode';
+import { listenerForPlayCards, createAudioForPlay, startPlay } from './playMode';
 
 export const pageStatus = {
   pageMode: '',
@@ -58,6 +59,7 @@ const categoryText = document.getElementById('categoryText');
 export const mainImages = document.getElementById('main-images');
 export const navigation = document.getElementById('navigation');
 export const navigationLinks = navigation.querySelectorAll('a');
+export let audioCollection = [];
 // script for switcher
 const switcher = document.getElementById('myonoffswitch');
 
@@ -172,6 +174,9 @@ const createCardImage = (element, card, textForCard) => {
   image.src = `/src/assets/img/${element}`;
   image.id = textForCard;
   card.append(image);
+  if (pageStatus.pageMode === 'play' && pageStatus.category !== 'Main Page') {
+    createAudioForPlay(textForCard);
+  }
 };
 
 const createMainCard = (element, textForCard, mode, textForTranslate) => {
@@ -181,9 +186,14 @@ const createMainCard = (element, textForCard, mode, textForTranslate) => {
     wordCard.className = `${mode}-card`;
     mainImages.append(wordCard);
     createCardImage(element, wordCard, textForCard);
-    createCardText(wordCard, textForCard, textForTranslate);
+    if (pageStatus.pageMode !== 'play') {
+      createCardText(wordCard, textForCard, textForTranslate);
+    }
     if (pageStatus.pageMode === 'train') {
       listenerForCards(wordCard);
+    }
+    if (pageStatus.pageMode === 'play') {
+      listenerForPlayCards(wordCard);
     }
   } else {
     const card = document.createElement('a');
@@ -204,6 +214,7 @@ const deleteCards = () => {
 
 export const addMainCards = (array, textForCardArr, mode, textForTranslateArr) => {
   if (mainImages.childNodes.length > 0) {
+    audioCollection = [];
     deleteCards();
   }
   let index = 0;
@@ -218,6 +229,7 @@ export const addMainCards = (array, textForCardArr, mode, textForTranslateArr) =
       index += 1;
     }
   });
+  startPlay(audioCollection);
 };
 // active link
 export const activeLink = () => {
