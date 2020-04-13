@@ -24,6 +24,34 @@
     h2{
         color: $color-background-1;
     }
+    img{
+        max-width: 70%;
+    }
+
+    div{
+        color: $color-background-1; 
+        font-family: "LatoBlack", sans-serif;
+    }
+
+    .category-stats{
+        font-size: 30px;
+        font-weight: 900;
+    }
+
+    .category-stats:hover{
+        cursor: pointer;
+        animation: pulse-shrink 2s linear infinite;
+    }
+
+    .categories-link{
+        color:$color-background-5;
+    }
+
+    .category-name{
+        font-size: 30px;
+        font-weight: 900; 
+    }
+
 }
 
 .modal__close-icon {

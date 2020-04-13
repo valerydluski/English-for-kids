@@ -6,16 +6,59 @@ export const pageStatus = {
   pageMode: '',
   category: '',
 };
+const emptyArr = ['0', '0', '0', '0', '0', '0', '0', '0'];
+export let appStats = {
+  'Action (set A)': [],
+
+  'Action (set B)': [],
+
+  'Action (set C)': [],
+
+  'Adjective': [],
+
+  'Animal (set A)': [],
+
+  'Animal (set B)': [],
+
+  'Clothes': [],
+
+  'Emotion': [],
+};
 
 export const saveState = () => {
   localStorage.setItem('pageMode', pageStatus.pageMode);
   localStorage.setItem('category', pageStatus.category);
+  localStorage.setItem('Action (set A)', appStats['Action (set A)']);
+  localStorage.setItem('Action (set B)', appStats['Action (set B)']);
+  localStorage.setItem('Action (set C)', appStats['Action (set C)']);
+  localStorage.setItem('Adjective', appStats['Adjective']);
+  localStorage.setItem('Animal (set A)', appStats['Animal (set A)']);
+  localStorage.setItem('Animal (set B)', appStats['Animal (set B)']);
+  localStorage.setItem('Clothes', appStats['Clothes']);
+  localStorage.setItem('Emotion', appStats['Emotion']);
 };
 
 export const restoreState = () => {
   pageStatus.pageMode = (localStorage.getItem('pageMode')) ? localStorage.getItem('pageMode') : 'train';
   pageStatus.category = (localStorage.getItem('category')) ? localStorage.getItem('category') : 'Main Page';
+  appStats['Action (set A)'] = (localStorage.getItem('Action (set A)')) ? localStorage.getItem('Action (set A)').split(',') : [emptyArr];
+  appStats['Action (set B)'] = (localStorage.getItem('Action (set B)')) ? localStorage.getItem('Action (set B)').split(',') : [emptyArr];
+  appStats['Action (set C)'] = (localStorage.getItem('Action (set C)')) ? localStorage.getItem('Action (set C)').split(',') : [emptyArr];
+  appStats['Adjective'] = (localStorage.getItem('Adjective')) ? localStorage.getItem('Adjective').split(',') : [emptyArr];
+  appStats['Animal (set A)'] = (localStorage.getItem('Animal (set A)')) ? localStorage.getItem('Animal (set A)').split(',') : [emptyArr];
+  appStats['Animal (set B)'] = (localStorage.getItem('Animal (set B)')) ? localStorage.getItem('Animal (set B)').split(',') : [emptyArr];
+  appStats['Clothes'] = (localStorage.getItem('Clothes')) ? localStorage.getItem('Clothes').split(',') : [emptyArr];
+  appStats['Emotion'] = (localStorage.getItem('Emotion')) ? localStorage.getItem('Emotion').split(',') : [emptyArr];
 };
+
+// class words {
+//   constructor(fileName, textCard, translateCard) {
+//     this.fileName = fileName;
+//     this.textCard = textCard;
+//     this.translateCard = translateCard;
+//   }
+// }
+
 
 export const pagesData = {
   categories: ['Main Page', 'Action (set A)', 'Action (set B)', 'Action (set C)', 'Adjective', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotion'],
@@ -229,7 +272,7 @@ export const addMainCards = (array, textForCardArr, mode, textForTranslateArr) =
       index += 1;
     }
   });
-  if (pageStatus.category !== 'Main Page' && mode === 'play'){
+  if (pageStatus.category !== 'Main Page' && mode === 'play') {
     createButtonPlay();
   }
 };
@@ -250,4 +293,5 @@ window.onload = () => {
   addMainCards(pagesData[`${pageStatus.category}`][0], pagesData[`${pageStatus.category}`][1], pageStatus.pageMode, pagesData[`${pageStatus.category}`][2]);
   navigationChangeBackground();
   activeLink();
+  console.log(appStats['Clothes']);
 };

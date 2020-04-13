@@ -1,8 +1,8 @@
 // reverse card
-
 const hideTranslate = (child) => {
   child[1].classList.add('text-hidden');
   child[0].classList.remove('text-hidden');
+  child[2].classList.remove('button_hidden');
 };
 
 const reverseCardBeginState = () => {
@@ -29,7 +29,7 @@ const reverseCard = (card) => {
     card.classList.remove('run-animation');
     card.addEventListener('mouseleave', reverseCardBeginState);
   }
-  setTimeout(createMouseleave, 1000);
+ setTimeout(createMouseleave, 1000);
 };
   // play audio for train
 const playAudioForTrain = (str) => {
@@ -38,14 +38,18 @@ const playAudioForTrain = (str) => {
   audioTrain.autoplay = true;
 };
 
+const trainCounter = (target) => {
+  console.log(target, target.parentNode);
+}
 
 export const listenerForCards = (card) => {
   card.addEventListener('click', (event) => {
+    // trainCounter(event.currentTarget);
+    const str = event.currentTarget.childNodes[0].id;
+    playAudioForTrain(str);
     if (event.target.classList.contains('button_reverse')) {
       reverseCard(event.currentTarget);
-    } else {
-      const str = event.currentTarget.childNodes[0].id;
-      playAudioForTrain(str);
+      event.target.classList.add('button_hidden');
     }
   });
 };

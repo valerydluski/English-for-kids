@@ -11,7 +11,7 @@ body{
   }
 
 h1{
-  font-family: 'LatoBold';
+  font-family: 'LatoBold', sans-serif;
   font-size: 24px;
   font-weight: 900;
 
@@ -19,20 +19,20 @@ h1{
 
 h2{
   color: $color-font-1;
-  font-family: "LatoBlack";
+  font-family: "LatoBlack", sans-serif;
   font-size: 30px;
   font-weight: 900;
 }
 
 h3{
-  font-family: "LatoBlack";
+  font-family: "LatoBlack", sans-serif;
   font-size: 18px;
   font-weight: 900;
 }
 
 p,
 a{
-  font-family: "LatoBlack"; 
+  font-family: "LatoBlack", sans-serif; 
   text-decoration: none;
   color: $color-font-1; 
 }
@@ -40,6 +40,5 @@ a{
 a:hover{
   color:rgb(87, 35, 139);
   cursor: pointer;
-  
 }
 

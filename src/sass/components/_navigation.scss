@@ -14,10 +14,27 @@
     transition: all 1s;  
     text-align: right;
     z-index: 2;
-    li{
+    li{ 
+        padding-top: 2em;
         margin-right: 10vw;
-        margin-top: 9px;
     }
+
+    // li a:before {
+    //     position: relative;
+    //     content:"";
+    //     transition: ease .5s;
+    //     font-size: 0px;
+    //   }
+    //   li a:hover:before {
+    //     content:"\263A";
+    //     font-size: 2em;
+    //     transition: ease .5s;
+    //     font-weight: bold;
+    //     text-decoration: inherit;
+    //     font-family: "LatoBlack"; 
+    //     color: $color-font-1; 
+    //   }
+    
 }
 
 .navigation-active {
@@ -34,5 +51,8 @@
 }  
 
 .link_active{
-    background-color: rgb(106, 226, 106);
+    color: #0f7afc;
+    border-bottom: 2px solid;
+    border-bottom-color: rgba(15, 122, 252, 0.2);
 }
+

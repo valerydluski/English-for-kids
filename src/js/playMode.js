@@ -1,5 +1,6 @@
 // script for play mode
-import { audioCollection, pageStatus } from './main';
+import { audioCollection, pageStatus, pagesData } from './main';
+
 
 let wrapper = document.getElementById('wrapper');
 const buttonPlay = document.createElement('img');
@@ -7,7 +8,7 @@ const buttonRepeat = document.createElement('img');
 let currentAudio;
 const indicator = document.createElement('div');
 let mistakesCounter;
-const modal = document.createElement('div');
+export const modal = document.createElement('div');
 
 const playAudioForGame = (audio) => {
   const audioGame = new Audio();
@@ -34,6 +35,14 @@ const createIndicatePanel = () => {
   wrapper.append(indicator);
 };
 
+export const startPlay = (audioCollection) => {
+  shuffleAudioCollection(audioCollection);
+  mistakesCounter = 0;
+  buttonPlay.classList.add('button_hidden');
+  buttonRepeat.classList.remove('button_hidden');
+  audioChoice(audioCollection);
+};
+
 export const createButtonPlay = () => {
   createIndicatePanel();
   buttonPlay.className = 'button_play';
@@ -58,10 +67,10 @@ const shuffleAudioCollection = () => {
 
 const closeModal = (event) => {
   const classes = event.target.classList;
-  if (classes.contains('overlay') || classes.contains('modal__close-icon')) {
+  if (classes.contains('modal__close-icon')) {
     document.querySelector('.overlay').remove();
+    window.location.href = 'index.html';
   }
-  window.location.href = 'index.html';
 };
 
 const createModalContent = () => {
@@ -79,7 +88,7 @@ const createModalContent = () => {
   modal.append(modalImage);
 };
 
-const createGameOverWindow = () => {
+export const createGameOverWindow = () => {
   const overlay = document.createElement('div');
   overlay.className = 'overlay';
   wrapper = document.getElementById('wrapper');
@@ -91,7 +100,9 @@ const createGameOverWindow = () => {
   closeButton.src = '/src/assets/img/close.png';
   modal.append(closeButton);
   overlay.addEventListener('click', closeModal);
-  createModalContent();
+  if (pageStatus.pageMode === 'play') {
+    createModalContent();
+  }
 };
 
 const gameOver = () => {
@@ -129,7 +140,7 @@ const addAnswerIndicator = (bool) => {
 };
 
 const checkAnswer = (id, target) => {
-  if (target.classList.contains('innactive-card')) {
+  if (target.classList.contains('innactive-card') || currentAudio === undefined) {
     return;
   }
   if (currentAudio.includes(id)) {
@@ -148,12 +159,4 @@ export const listenerForPlayCards = (card) => {
   card.addEventListener('click', (event) => {
     checkAnswer(event.target.id, event.target);
   });
-};
-
-export const startPlay = (audioCollection) => {
-  shuffleAudioCollection(audioCollection);
-  mistakesCounter = 0;
-  buttonPlay.classList.add('button_hidden');
-  buttonRepeat.classList.remove('button_hidden');
-  audioChoice(audioCollection);
 };
