@@ -6,7 +6,7 @@ export const pageStatus = {
   pageMode: '',
   category: '',
 };
-const emptyArr = ['0', '0', '0', '0', '0', '0', '0', '0'];
+const emptyArr = ['0', '0', '0', '0', '0', '0', '0', '0','0', '0', '0', '0', '0', '0', '0', '0','0', '0', '0', '0', '0', '0', '0', '0'];
 export let appStats = {
   'Action (set A)': [],
 
@@ -222,10 +222,11 @@ const createCardImage = (element, card, textForCard) => {
   }
 };
 
-const createMainCard = (element, textForCard, mode, textForTranslate) => {
+const createMainCard = (element, textForCard, mode, textForTranslate, index) => {
   categoryText.textContent = `${pageStatus.category}`;
   if (checkActivePage()) {
     const wordCard = document.createElement('div');
+    wordCard.id = `card${index}`
     wordCard.className = `${mode}-card`;
     mainImages.append(wordCard);
     createCardImage(element, wordCard, textForCard);
@@ -240,6 +241,7 @@ const createMainCard = (element, textForCard, mode, textForTranslate) => {
     }
   } else {
     const card = document.createElement('a');
+    card.id = `card${index}`
     card.className = 'main-card';
     card.classList.add(`main-card_${pageStatus.pageMode}`);
     card.href = `${pageStatus.pageMode}.html`;
@@ -265,7 +267,7 @@ export const addMainCards = (array, textForCardArr, mode, textForTranslateArr) =
     const textForCard = textForCardArr[index];
     if (pageStatus.category !== 'Main Page') {
       const textForTranslate = textForTranslateArr[index];
-      createMainCard(element, textForCard, mode, textForTranslate);
+      createMainCard(element, textForCard, mode, textForTranslate, index);
       index += 1;
     } else {
       createMainCard(element, textForCard, mode);
@@ -293,5 +295,4 @@ window.onload = () => {
   addMainCards(pagesData[`${pageStatus.category}`][0], pagesData[`${pageStatus.category}`][1], pageStatus.pageMode, pagesData[`${pageStatus.category}`][2]);
   navigationChangeBackground();
   activeLink();
-  console.log(appStats['Clothes']);
 };

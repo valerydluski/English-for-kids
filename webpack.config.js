@@ -56,17 +56,17 @@ module.exports = (env, options) => {
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         hash: false,
-        template: 'index.html',
+        template: './src/index.html',
         filename: 'index.html',
       }),
       new HtmlWebpackPlugin({
         hash: false,
-        template: 'train.html',
+        template: './src/train.html',
         filename: 'train.html',
       }),
       new HtmlWebpackPlugin({
         hash: false,
-        template: 'play.html',
+        template: './src/play.html',
         filename: 'play.html',
       }),
       new MiniCssExtractPlugin({

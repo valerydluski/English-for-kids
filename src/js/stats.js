@@ -1,5 +1,5 @@
 import { createGameOverWindow, modal } from './playMode';
-import { pagesData } from './main';
+import { pagesData, appStats, restoreState } from './main';
 
 const buttonStats = document.getElementById('buttonStats');
 
@@ -9,7 +9,7 @@ const deleteChild = (arr) => {
   }
 };
 
-const createModalLink = (target, isCategories, str) => {
+const createModalLink = (target, isCategories) => {
   const categoriesLink = document.createElement('div');
   categoriesLink.className = 'category-stats';
   categoriesLink.classList.add('categories-link');
@@ -37,9 +37,40 @@ const createTranslateModal = (text) => {
   modal.append(translate);
 };
 
+const createTrainCount = (text) => {
+  const trainCount = document.createElement('div');
+  trainCount.className = 'category-name';
+  trainCount.textContent = `train: ${text}`;
+  modal.append(trainCount);
+};
+
+const createPlayCount = (correct, wrong) => {
+  const correctCount = document.createElement('div');
+  const wrongCount = document.createElement('div');
+  correctCount.className = 'category-name';
+  wrongCount.className = 'category-name';
+  correctCount.textContent = `correct: ${correct}`;
+  wrongCount.textContent = `wrong: ${wrong}`;
+  modal.append(correctCount);
+  modal.append(wrongCount);
+  if ((+correct+wrong)>0){
+    correct = Number(correct);
+    wrong = Number(wrong);
+    let countPercent = Math.ceil((correct/(correct+wrong))*100);
+    
+    const percent = document.createElement('div');
+    percent.className = 'category-name';
+    percent.textContent = `percent: ${countPercent}%`;
+    modal.append(percent);
+  }
+};
+
 const createAllWordsInfo = (index, category) => {
   console.log(index, category);
+  restoreState();
   createTranslateModal(pagesData[`${category}`][2][index]);
+  createTrainCount(appStats[`${category}`][index]);
+  createPlayCount(appStats[`${category}`][index+8],appStats[`${category}`][index+16])
 };
 
 const createStatsThisWords = (eventTarget, index, target) => {

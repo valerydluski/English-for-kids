@@ -1,3 +1,5 @@
+import {saveState, restoreState, pageStatus, appStats} from './main';
+
 // reverse card
 const hideTranslate = (child) => {
   child[1].classList.add('text-hidden');
@@ -38,13 +40,18 @@ const playAudioForTrain = (str) => {
   audioTrain.autoplay = true;
 };
 
-const trainCounter = (target) => {
-  console.log(target, target.parentNode);
+const trainCounter = (id) => {
+  const numberCard = id.slice(4);
+  restoreState();
+  let counter = (appStats[`${pageStatus.category}`][numberCard]);
+  counter = +counter + 1;
+  (appStats[`${pageStatus.category}`][numberCard]) = counter;
+  saveState();
 }
 
 export const listenerForCards = (card) => {
   card.addEventListener('click', (event) => {
-    // trainCounter(event.currentTarget);
+    trainCounter(event.currentTarget.id);
     const str = event.currentTarget.childNodes[0].id;
     playAudioForTrain(str);
     if (event.target.classList.contains('button_reverse')) {

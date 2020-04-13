@@ -1,5 +1,7 @@
 // script for play mode
-import { audioCollection, pageStatus, pagesData } from './main';
+import {
+  audioCollection, pageStatus, pagesData, restoreState, saveState, appStats
+} from './main';
 
 
 let wrapper = document.getElementById('wrapper');
@@ -139,16 +141,40 @@ const addAnswerIndicator = (bool) => {
   indicator.append(answerIndicator);
 };
 
-const checkAnswer = (id, target) => {
-  if (target.classList.contains('innactive-card') || currentAudio === undefined) {
+const playCounter = (id, isAnswer) => {
+  let numberCard = id.slice(4);
+  restoreState();
+  if (isAnswer) {
+    numberCard = +numberCard+8
+    let counter = (appStats[`${pageStatus.category}`][numberCard]);
+    console.log(counter)
+    counter = +counter + 1;
+    (appStats[`${pageStatus.category}`][numberCard]) = counter;
+    saveState();
+    console.log(counter)
+  } else {
+    numberCard = +numberCard+16
+    let counter = (appStats[`${pageStatus.category}`][numberCard]);
+    console.log(counter)
+    counter = +counter + 1;
+    (appStats[`${pageStatus.category}`][numberCard]) = counter;
+    saveState();
+    console.log(counter)
+  }
+};
+
+const checkAnswer = (id, target, currentTarget) => {
+  if (target.classList.contains('not-active-card') || currentAudio === undefined) {
     return;
   }
   if (currentAudio.includes(id)) {
+    playCounter(currentTarget, true);
     addAnswerIndicator(true);
     playAudioForGame('https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/rslang/english-for.kids.data/audio/correct.mp3');
     setTimeout(() => audioChoice(audioCollection), 1000);
-    target.classList.add('innactive-card');
+    target.classList.add('not-active-card');
   } else {
+    playCounter(currentTarget, false);
     mistakesCounter += 1;
     addAnswerIndicator(false);
     playAudioForGame('https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/rslang/english-for.kids.data/audio/error.mp3');
@@ -157,6 +183,6 @@ const checkAnswer = (id, target) => {
 
 export const listenerForPlayCards = (card) => {
   card.addEventListener('click', (event) => {
-    checkAnswer(event.target.id, event.target);
+    checkAnswer(event.target.id, event.target, event.currentTarget.id);
   });
 };
