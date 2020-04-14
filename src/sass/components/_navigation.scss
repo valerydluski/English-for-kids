@@ -22,6 +22,18 @@
         animation: pulse-shrink 2s linear infinite;
         cursor: pointer;
     }
+     
+    img{
+        width: 80%;
+        max-width: 70px;
+        padding-top: 1vh;
+        margin-right: 10vw;
+    }
+
+    img:hover{
+        animation: pulse-shrink 2s linear infinite;
+        cursor: pointer;
+    }
 }
 
 .navigation-active {
@@ -42,4 +54,5 @@
     border-bottom: 2px solid;
     border-bottom-color: rgba(15, 122, 252, 0.2);
 }
+
 

@@ -1,8 +1,9 @@
 import { createGameOverWindow, modal } from './playMode';
 import {
-  pagesData, appStats, restoreState,
+  pagesData, appStats, restoreState, navigation
 } from './main';
 import { createAllWord } from './allWords';
+import { hamburger } from './hamburger';
 
 const buttonStats = document.getElementById('buttonStats');
 
@@ -154,6 +155,9 @@ const createThisCategory = (target) => {
 
 export const statsListener = () => {
   buttonStats.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    hamburger.classList.add('not-active');
+    navigation.classList.remove('navigation-active');
     createGameOverWindow();
     createCategoriesModal(pagesData.categories);
   });

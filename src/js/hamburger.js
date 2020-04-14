@@ -1,8 +1,8 @@
 // sript for hamburger
 import { navigation } from './main';
 
-const hamburger = document.getElementById('hamburger');
-export { hamburger as default };
+export const hamburger = document.getElementById('hamburger');
+
 window.addEventListener('mousedown', (event) => {
   const { target } = event;
   if (target !== navigation && target.parentNode !== navigation
