@@ -20,14 +20,7 @@
             position: relative;
             margin: 0 auto;
             width: 80%;
-            max-width: 70px;
-            
-        }
-        img:hover{
-            cursor: pointer;
-            border-radius: 30%;
-            transition: all 2s ease-out;
-            animation: pulse-shrink 2s linear infinite;
+            max-width: 70px;   
         }
     }
 }
@@ -37,7 +30,7 @@
 
 @keyframes pulse-shrink {
     25% {
-		transform: scale(1.3);
+		transform: scale(1.2);
 	}
 
 	50% {
@@ -45,7 +38,7 @@
     }
 
     75% {
-        transform: scale(1.3);
+        transform: scale(1.2);
     }
     
     100% {

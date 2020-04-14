@@ -278,12 +278,24 @@ export const activeLink = () => {
   });
 };
 
+const resetListener = () => {
+  const resetButton = document.getElementById('buttonReset');
+  resetButton.addEventListener('click', () => {
+    restoreState();
+    for (const key in appStats) {
+      appStats[`${key}`] = emptyArr;
+    }
+    saveState();
+  });
+};
+
 const firstPage = () => {
   if (!checkActivePage()) {
     pageStatus.category = 'Main Page';
     pageStatus.pageMode = 'train';
     saveState();
     statsListener();
+    resetListener();
   }
 };
 

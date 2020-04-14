@@ -240,6 +240,7 @@
     min-width: 100px;
     min-height: 50px;
     transition: all 1s;
+    border-radius: 50%;
   }
 
   .button_play:hover{
@@ -279,3 +280,5 @@
       height: 10vw;
     }
   }
+
+  //object-fit: cover

@@ -18,21 +18,16 @@
         padding-top: 1vh;
         margin-right: 10vw;
     }
-    li:hover{
-        animation: pulse-shrink 2s linear infinite;
-        cursor: pointer;
-    }
+    // li:hover{
+    //     animation: pulse-shrink 2s linear infinite;
+    //     cursor: pointer;
+    // }
      
     img{
+        margin-right: 0;
         width: 80%;
         max-width: 70px;
         padding-top: 1vh;
-        margin-right: 10vw;
-    }
-
-    img:hover{
-        animation: pulse-shrink 2s linear infinite;
-        cursor: pointer;
     }
 }
 
@@ -55,4 +50,7 @@
     border-bottom-color: rgba(15, 122, 252, 0.2);
 }
 
-
+.navigation li:hover{
+        animation: pulse-shrink 2s linear infinite;
+        cursor: pointer;
+    }
