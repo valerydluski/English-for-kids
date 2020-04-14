@@ -15,26 +15,13 @@
     text-align: right;
     z-index: 2;
     li{ 
-        padding-top: 2em;
+        padding-top: 1vh;
         margin-right: 10vw;
     }
-
-    // li a:before {
-    //     position: relative;
-    //     content:"";
-    //     transition: ease .5s;
-    //     font-size: 0px;
-    //   }
-    //   li a:hover:before {
-    //     content:"\263A";
-    //     font-size: 2em;
-    //     transition: ease .5s;
-    //     font-weight: bold;
-    //     text-decoration: inherit;
-    //     font-family: "LatoBlack"; 
-    //     color: $color-font-1; 
-    //   }
-    
+    li:hover{
+        animation: pulse-shrink 2s linear infinite;
+        cursor: pointer;
+    }
 }
 
 .navigation-active {
@@ -43,7 +30,7 @@
   }
 
 .navigation_train{
-    background-color: $color-background-2;
+    background-color: $color-background-1;
 }
 
 .navigation_play{

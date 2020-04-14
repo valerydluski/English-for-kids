@@ -1,5 +1,6 @@
 import { listenerForCards } from './trainMode';
 import { listenerForPlayCards, createAudioForPlay, createButtonPlay } from './playMode';
+import { statsListener } from './stats';
 
 export const pageStatus = {
   pageMode: '',
@@ -150,7 +151,7 @@ export const checkActivePage = () => {
   if (window.location.href.includes('train') || window.location.href.includes('play')) {
     return true;
   }
-
+  statsListener();
   return false;
 };
 

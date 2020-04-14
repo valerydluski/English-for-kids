@@ -1,5 +1,7 @@
 import { createGameOverWindow, modal } from './playMode';
-import { pagesData, appStats, restoreState } from './main';
+import {
+  pagesData, appStats, restoreState,
+} from './main';
 
 const buttonStats = document.getElementById('buttonStats');
 
@@ -30,6 +32,33 @@ const createModalLink = (target, isCategories) => {
   }
 };
 
+const createCategoryWords = (target) => {
+  deleteChild(modal.childNodes);
+  createModalLink(target, true);
+  createThisCategory(target);
+};
+
+const createStatsCategory = (element) => {
+  if (element === 'Main Page') {
+    return;
+  }
+  const statsCategory = document.createElement('div');
+  statsCategory.className = 'category-stats';
+  statsCategory.textContent = `${element}`;
+  modal.append(statsCategory);
+  statsCategory.addEventListener('click', (event) => {
+    createCategoryWords(event.target);
+  });
+};
+
+const createCategoriesModal = (arr) => {
+  deleteChild(modal.childNodes);
+  arr.forEach((element) => {
+    createStatsCategory(element);
+  });
+};
+
+
 const createTranslateModal = (text) => {
   const translate = document.createElement('div');
   translate.className = 'category-name';
@@ -53,11 +82,11 @@ const createPlayCount = (correct, wrong) => {
   wrongCount.textContent = `wrong: ${wrong}`;
   modal.append(correctCount);
   modal.append(wrongCount);
-  if ((+correct+wrong)>0){
+  if ((+correct + wrong) > 0) {
     correct = Number(correct);
     wrong = Number(wrong);
-    let countPercent = Math.ceil((correct/(correct+wrong))*100);
-    
+    const countPercent = Math.ceil((correct / (correct + wrong)) * 100);
+
     const percent = document.createElement('div');
     percent.className = 'category-name';
     percent.textContent = `percent: ${countPercent}%`;
@@ -66,12 +95,12 @@ const createPlayCount = (correct, wrong) => {
 };
 
 const createAllWordsInfo = (index, category) => {
-  console.log(index, category);
   restoreState();
   createTranslateModal(pagesData[`${category}`][2][index]);
   createTrainCount(appStats[`${category}`][index]);
-  createPlayCount(appStats[`${category}`][index+8],appStats[`${category}`][index+16])
+  createPlayCount(appStats[`${category}`][index + 8], appStats[`${category}`][index + 16]);
 };
+
 
 const createStatsThisWords = (eventTarget, index, target) => {
   deleteChild(modal.childNodes);
@@ -112,33 +141,10 @@ const createThisCategory = (target) => {
   createWordsModal(words, target);
 };
 
-const createCategoryWords = (target) => {
-  deleteChild(modal.childNodes);
-  createModalLink(target, true);
-  createThisCategory(target);
-};
 
-const createStatsCategory = (element) => {
-  if (element === 'Main Page') {
-    return;
-  }
-  const statsCategory = document.createElement('div');
-  statsCategory.className = 'category-stats';
-  statsCategory.textContent = `${element}`;
-  modal.append(statsCategory);
-  statsCategory.addEventListener('click', (event) => {
-    createCategoryWords(event.target);
+export const statsListener = () => {
+  buttonStats.addEventListener('click', () => {
+    createGameOverWindow();
+    createCategoriesModal(pagesData.categories);
   });
 };
-
-const createCategoriesModal = (arr) => {
-  arr.forEach((element) => {
-    createStatsCategory(element);
-  });
-};
-
-
-buttonStats.addEventListener('click', () => {
-  createGameOverWindow();
-  createCategoriesModal(pagesData.categories);
-});

@@ -1,4 +1,6 @@
-import {saveState, restoreState, pageStatus, appStats} from './main';
+import {
+  saveState, restoreState, pageStatus, appStats,
+} from './main';
 
 // reverse card
 const hideTranslate = (child) => {
@@ -31,7 +33,7 @@ const reverseCard = (card) => {
     card.classList.remove('run-animation');
     card.addEventListener('mouseleave', reverseCardBeginState);
   }
- setTimeout(createMouseleave, 1000);
+  setTimeout(createMouseleave, 1000);
 };
   // play audio for train
 const playAudioForTrain = (str) => {
@@ -47,7 +49,7 @@ const trainCounter = (id) => {
   counter = +counter + 1;
   (appStats[`${pageStatus.category}`][numberCard]) = counter;
   saveState();
-}
+};
 
 export const listenerForCards = (card) => {
   card.addEventListener('click', (event) => {

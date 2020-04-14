@@ -28,7 +28,7 @@ buttonRepeat.addEventListener('mousedown', () => {
 const createButtonRepeat = () => {
   buttonRepeat.className = 'button_play';
   buttonRepeat.classList.add('button_hidden');
-  buttonRepeat.src = '/src/assets/img/repeat.png';
+  buttonRepeat.src = './assets/img/repeat.png';
   wrapper.append(buttonRepeat);
 };
 
@@ -55,7 +55,7 @@ const createModalContent = () => {
     modal.append(modalText);
     str = 'bad';
   }
-  modalImage.src = `/src/assets/img/${str}.png`;
+  modalImage.src = `./assets/img/${str}.png`;
   modal.append(modalImage);
 };
 
@@ -76,7 +76,7 @@ export const createGameOverWindow = () => {
   overlay.append(modal);
   const closeButton = document.createElement('img');
   closeButton.className = 'modal__close-icon';
-  closeButton.src = '/src/assets/img/close.png';
+  closeButton.src = './assets/img/close.png';
   modal.append(closeButton);
   overlay.addEventListener('click', closeModal);
   if (pageStatus.pageMode === 'play') {
@@ -114,7 +114,7 @@ export const startPlay = (audio) => {
 export const createButtonPlay = () => {
   createIndicatePanel();
   buttonPlay.className = 'button_play';
-  buttonPlay.src = '/src/assets/img/play.png';
+  buttonPlay.src = './assets/img/play.png';
   wrapper.append(buttonPlay);
   createButtonRepeat();
   buttonPlay.addEventListener('click', startPlay);
@@ -138,7 +138,7 @@ const addAnswerIndicator = (bool) => {
   }
   const answerIndicator = document.createElement('img');
   answerIndicator.className = 'answer';
-  answerIndicator.src = `/src/assets/img/${typeAnswer}.png`;
+  answerIndicator.src = `./assets/img/${typeAnswer}.png`;
   indicator.append(answerIndicator);
 };
 
