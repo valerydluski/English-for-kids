@@ -1,6 +1,6 @@
 // script for play mode
 import {
-  audioCollection, pageStatus, pagesData, restoreState, saveState, appStats
+  audioCollection, pageStatus, restoreState, saveState, appStats,
 } from './main';
 
 
@@ -37,41 +37,10 @@ const createIndicatePanel = () => {
   wrapper.append(indicator);
 };
 
-export const startPlay = (audioCollection) => {
-  shuffleAudioCollection(audioCollection);
-  mistakesCounter = 0;
-  buttonPlay.classList.add('button_hidden');
-  buttonRepeat.classList.remove('button_hidden');
-  audioChoice(audioCollection);
-};
-
-export const createButtonPlay = () => {
-  createIndicatePanel();
-  buttonPlay.className = 'button_play';
-  buttonPlay.src = '/src/assets/img/play.png';
-  wrapper.append(buttonPlay);
-  createButtonRepeat();
-  buttonPlay.addEventListener('click', startPlay);
-};
-
-
-export const createAudioForPlay = (str) => {
-  audioCollection.push(`https://wooordhunt.ru//data/sound/word/us/mp3/${str}.mp3`);
-};
-
 const shuffleAudioCollection = () => {
   for (let i = audioCollection.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1));
     [audioCollection[i], audioCollection[j]] = [audioCollection[j], audioCollection[i]];
-  }
-};
-
-
-const closeModal = (event) => {
-  const classes = event.target.classList;
-  if (classes.contains('modal__close-icon')) {
-    document.querySelector('.overlay').remove();
-    window.location.href = 'index.html';
   }
 };
 
@@ -88,6 +57,14 @@ const createModalContent = () => {
   }
   modalImage.src = `/src/assets/img/${str}.png`;
   modal.append(modalImage);
+};
+
+const closeModal = (event) => {
+  const classes = event.target.classList;
+  if (classes.contains('modal__close-icon')) {
+    document.querySelector('.overlay').remove();
+    window.location.href = 'index.html';
+  }
 };
 
 export const createGameOverWindow = () => {
@@ -116,6 +93,7 @@ const gameOver = () => {
   createGameOverWindow();
 };
 
+
 const audioChoice = () => {
   currentAudio = audioCollection.pop();
   if (currentAudio === undefined && pageStatus.category !== 'Main Page' && pageStatus.pageMode === 'play') {
@@ -124,6 +102,29 @@ const audioChoice = () => {
     playAudioForGame(currentAudio);
   }
 };
+
+export const startPlay = (audio) => {
+  shuffleAudioCollection(audio);
+  mistakesCounter = 0;
+  buttonPlay.classList.add('button_hidden');
+  buttonRepeat.classList.remove('button_hidden');
+  audioChoice(audio);
+};
+
+export const createButtonPlay = () => {
+  createIndicatePanel();
+  buttonPlay.className = 'button_play';
+  buttonPlay.src = '/src/assets/img/play.png';
+  wrapper.append(buttonPlay);
+  createButtonRepeat();
+  buttonPlay.addEventListener('click', startPlay);
+};
+
+
+export const createAudioForPlay = (str) => {
+  audioCollection.push(`https://wooordhunt.ru//data/sound/word/us/mp3/${str}.mp3`);
+};
+
 
 const addAnswerIndicator = (bool) => {
   let typeAnswer;
@@ -145,21 +146,17 @@ const playCounter = (id, isAnswer) => {
   let numberCard = id.slice(4);
   restoreState();
   if (isAnswer) {
-    numberCard = +numberCard+8
+    numberCard = +numberCard + 8;
     let counter = (appStats[`${pageStatus.category}`][numberCard]);
-    console.log(counter)
     counter = +counter + 1;
     (appStats[`${pageStatus.category}`][numberCard]) = counter;
     saveState();
-    console.log(counter)
   } else {
-    numberCard = +numberCard+16
+    numberCard = +numberCard + 16;
     let counter = (appStats[`${pageStatus.category}`][numberCard]);
-    console.log(counter)
     counter = +counter + 1;
     (appStats[`${pageStatus.category}`][numberCard]) = counter;
     saveState();
-    console.log(counter)
   }
 };
 

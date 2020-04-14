@@ -1,5 +1,5 @@
 import {
-  pageStatus, saveState, restoreState, addMainCards, pagesData, checkActivePage, activeLink,
+  pageStatus, saveState, restoreState, addMainCards, pagesData, activeLink,
 } from './main';
 
 
@@ -32,12 +32,3 @@ mainImages.addEventListener('mousedown', (event) => {
     changeCategory(event.target.parentElement.textContent);
   }
 });
-
-
-export const firstPage = () => {
-  if (!checkActivePage()) {
-    pageStatus.category = 'Main Page';
-    pageStatus.pageMode = 'train';
-    saveState();
-  }
-};

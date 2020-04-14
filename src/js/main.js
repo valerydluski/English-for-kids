@@ -1,4 +1,3 @@
-import { firstPage } from './changeCategory';
 import { listenerForCards } from './trainMode';
 import { listenerForPlayCards, createAudioForPlay, createButtonPlay } from './playMode';
 
@@ -6,23 +5,23 @@ export const pageStatus = {
   pageMode: '',
   category: '',
 };
-const emptyArr = ['0', '0', '0', '0', '0', '0', '0', '0','0', '0', '0', '0', '0', '0', '0', '0','0', '0', '0', '0', '0', '0', '0', '0'];
-export let appStats = {
+const emptyArr = ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'];
+export const appStats = {
   'Action (set A)': [],
 
   'Action (set B)': [],
 
   'Action (set C)': [],
 
-  'Adjective': [],
+  Adjective: [],
 
   'Animal (set A)': [],
 
   'Animal (set B)': [],
 
-  'Clothes': [],
+  Clothes: [],
 
-  'Emotion': [],
+  Emotion: [],
 };
 
 export const saveState = () => {
@@ -31,11 +30,11 @@ export const saveState = () => {
   localStorage.setItem('Action (set A)', appStats['Action (set A)']);
   localStorage.setItem('Action (set B)', appStats['Action (set B)']);
   localStorage.setItem('Action (set C)', appStats['Action (set C)']);
-  localStorage.setItem('Adjective', appStats['Adjective']);
+  localStorage.setItem('Adjective', appStats.Adjective);
   localStorage.setItem('Animal (set A)', appStats['Animal (set A)']);
   localStorage.setItem('Animal (set B)', appStats['Animal (set B)']);
-  localStorage.setItem('Clothes', appStats['Clothes']);
-  localStorage.setItem('Emotion', appStats['Emotion']);
+  localStorage.setItem('Clothes', appStats.Clothes);
+  localStorage.setItem('Emotion', appStats.Emotion);
 };
 
 export const restoreState = () => {
@@ -44,11 +43,11 @@ export const restoreState = () => {
   appStats['Action (set A)'] = (localStorage.getItem('Action (set A)')) ? localStorage.getItem('Action (set A)').split(',') : [emptyArr];
   appStats['Action (set B)'] = (localStorage.getItem('Action (set B)')) ? localStorage.getItem('Action (set B)').split(',') : [emptyArr];
   appStats['Action (set C)'] = (localStorage.getItem('Action (set C)')) ? localStorage.getItem('Action (set C)').split(',') : [emptyArr];
-  appStats['Adjective'] = (localStorage.getItem('Adjective')) ? localStorage.getItem('Adjective').split(',') : [emptyArr];
+  appStats.Adjective = (localStorage.getItem('Adjective')) ? localStorage.getItem('Adjective').split(',') : [emptyArr];
   appStats['Animal (set A)'] = (localStorage.getItem('Animal (set A)')) ? localStorage.getItem('Animal (set A)').split(',') : [emptyArr];
   appStats['Animal (set B)'] = (localStorage.getItem('Animal (set B)')) ? localStorage.getItem('Animal (set B)').split(',') : [emptyArr];
-  appStats['Clothes'] = (localStorage.getItem('Clothes')) ? localStorage.getItem('Clothes').split(',') : [emptyArr];
-  appStats['Emotion'] = (localStorage.getItem('Emotion')) ? localStorage.getItem('Emotion').split(',') : [emptyArr];
+  appStats.Clothes = (localStorage.getItem('Clothes')) ? localStorage.getItem('Clothes').split(',') : [emptyArr];
+  appStats.Emotion = (localStorage.getItem('Emotion')) ? localStorage.getItem('Emotion').split(',') : [emptyArr];
 };
 
 // class words {
@@ -195,7 +194,7 @@ const createTranslateForTrain = (text, textForTranslate) => {
   translate.textContent = textForTranslate;
   const reverseButton = document.createElement('img');
   reverseButton.className = 'button_reverse';
-  reverseButton.src = '/src/assets/img/reverse.png';
+  reverseButton.src = './assets/img/reverse.png';
   text.append(reverseButton);
 };
 
@@ -214,7 +213,7 @@ const createCardText = (card, textForCard, textForTranslate) => {
 
 const createCardImage = (element, card, textForCard) => {
   const image = document.createElement('img');
-  image.src = `/src/assets/img/${element}`;
+  image.src = `./assets/img/${element}`;
   image.id = textForCard;
   card.append(image);
   if (pageStatus.pageMode === 'play' && pageStatus.category !== 'Main Page') {
@@ -226,7 +225,7 @@ const createMainCard = (element, textForCard, mode, textForTranslate, index) => 
   categoryText.textContent = `${pageStatus.category}`;
   if (checkActivePage()) {
     const wordCard = document.createElement('div');
-    wordCard.id = `card${index}`
+    wordCard.id = `card${index}`;
     wordCard.className = `${mode}-card`;
     mainImages.append(wordCard);
     createCardImage(element, wordCard, textForCard);
@@ -241,7 +240,7 @@ const createMainCard = (element, textForCard, mode, textForTranslate, index) => 
     }
   } else {
     const card = document.createElement('a');
-    card.id = `card${index}`
+    card.id = `card${index}`;
     card.className = 'main-card';
     card.classList.add(`main-card_${pageStatus.pageMode}`);
     card.href = `${pageStatus.pageMode}.html`;
@@ -286,6 +285,14 @@ export const activeLink = () => {
       element.classList.add('link_active');
     }
   });
+};
+
+const firstPage = () => {
+  if (!checkActivePage()) {
+    pageStatus.category = 'Main Page';
+    pageStatus.pageMode = 'train';
+    saveState();
+  }
 };
 
 window.onload = () => {

@@ -1,8 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = (env, options) => {
@@ -73,7 +73,7 @@ module.exports = (env, options) => {
         filename: 'style.css',
       }),
       new CopyWebpackPlugin([
-        { from: './src/assets', to: 'src/assets' },
+        { from: './src/assets', to: 'assets' },
       ]),
     ],
   };
