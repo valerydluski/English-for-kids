@@ -61,7 +61,7 @@ const createModalContent = () => {
 
 const closeModal = (event) => {
   const classes = event.target.classList;
-  if (classes.contains('modal__close-icon')) {
+  if (classes.contains('modal__close-icon') || classes.contains('overlay')) {
     document.querySelector('.overlay').remove();
     window.location.href = 'index.html';
   }
@@ -161,7 +161,7 @@ const playCounter = (id, isAnswer) => {
 };
 
 const checkAnswer = (id, target, currentTarget) => {
-  if (target.classList.contains('not-active-card') || currentAudio === undefined) {
+  if (target.classList.contains('not-active-card') || currentAudio === undefined || target.classList.contains('play-card')) {
     return;
   }
   if (currentAudio.includes(id)) {

@@ -2,6 +2,7 @@ import { createGameOverWindow, modal } from './playMode';
 import {
   pagesData, appStats, restoreState,
 } from './main';
+import { createAllWord } from './allWords';
 
 const buttonStats = document.getElementById('buttonStats');
 
@@ -39,12 +40,13 @@ const createCategoryWords = (target) => {
 };
 
 const createStatsCategory = (element) => {
+  let elem = element;
   if (element === 'Main Page') {
-    return;
+    elem = 'All Words';
   }
   const statsCategory = document.createElement('div');
   statsCategory.className = 'category-stats';
-  statsCategory.textContent = `${element}`;
+  statsCategory.textContent = `${elem}`;
   modal.append(statsCategory);
   statsCategory.addEventListener('click', (event) => {
     createCategoryWords(event.target);
@@ -135,7 +137,15 @@ const createNamePage = (text) => {
   modal.append(statsCategory);
 };
 
+const createAllStats = () => {
+  createAllWord();
+};
+
 const createThisCategory = (target) => {
+  if (target.textContent === 'All Words') {
+    createAllStats();
+    return;
+  }
   createNamePage(target.textContent);
   const words = pagesData[`${target.textContent}`][1];
   createWordsModal(words, target);

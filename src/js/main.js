@@ -51,15 +51,6 @@ export const restoreState = () => {
   appStats.Emotion = (localStorage.getItem('Emotion')) ? localStorage.getItem('Emotion').split(',') : [emptyArr];
 };
 
-// class words {
-//   constructor(fileName, textCard, translateCard) {
-//     this.fileName = fileName;
-//     this.textCard = textCard;
-//     this.translateCard = translateCard;
-//   }
-// }
-
-
 export const pagesData = {
   categories: ['Main Page', 'Action (set A)', 'Action (set B)', 'Action (set C)', 'Adjective', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotion'],
 
@@ -151,7 +142,6 @@ export const checkActivePage = () => {
   if (window.location.href.includes('train') || window.location.href.includes('play')) {
     return true;
   }
-  statsListener();
   return false;
 };
 
@@ -293,6 +283,7 @@ const firstPage = () => {
     pageStatus.category = 'Main Page';
     pageStatus.pageMode = 'train';
     saveState();
+    statsListener();
   }
 };
 
