@@ -27,20 +27,6 @@ const tableDeleteChild = () => {
     tableForAllStats.removeChild(tableForAllStats.lastChild);
   }
 };
-const clickerHeader = () => {
-  if (event.target.id === 'word' && !(isWordSort)) {
-    tableDeleteChild();
-    createAllWordsStats(sortAlphabet(allWords));
-    isWordSort = true;
-    return;
-  }
-  if (event.target.id === 'word' && isWordSort) {
-    tableDeleteChild();
-    createAllWordsStats(allWords);
-    isWordSort = false;
-    return;
-  }
-};
 
 const createElementTable = (text) => {
   const elementTable = document.createElement('div');
@@ -52,18 +38,35 @@ const createElementTable = (text) => {
 
 const createAllWordsStats = (object) => {
   for (const key in object) {
-    const word = object[`${key}`];
-    for (const keyWord in word) {
-      createElementTable(word[`${keyWord}`]);
+    if (Object.prototype.hasOwnProperty.call(object, key)) {
+      const word = object[`${key}`];
+      for (const keyWord in word) {
+        createElementTable(word[`${keyWord}`]);
+      }
+      const correct = Number(word.correct);
+      const error = Number(word.error);
+      if ((correct + error) === 0) {
+        createElementTable('-');
+      } else {
+        const countPercent = Math.ceil((correct / (correct + error)) * 100);
+        createElementTable(countPercent);
+      }
     }
-    const correct = Number(word.correct);
-    const error = Number(word.error);
-    if ((correct + error) === 0) {
-      createElementTable('not play');
-    } else {
-      const countPercent = Math.ceil((correct / (correct + error)) * 100);
-      createElementTable(countPercent);
-    }
+  }
+};
+
+const clickerHeader = () => {
+  const targetId = event.target.id;
+  if (targetId === 'word' && !(isWordSort)) {
+    tableDeleteChild();
+    createAllWordsStats(sortAlphabet(allWords));
+    isWordSort = true;
+    return;
+  }
+  if (targetId === 'word' && isWordSort) {
+    tableDeleteChild();
+    createAllWordsStats(allWords);
+    isWordSort = false;
   }
 };
 
@@ -95,7 +98,11 @@ export const createAllWord = () => {
     let index = 0;
     if (category !== 'Main Page') {
       pagesData[`${category}`][1].forEach((word) => {
-        allWords[`${word}`] = new Words(word, category, pagesData[`${category}`][2][index], appStats[`${category}`][index], appStats[`${category}`][index + 8], appStats[`${category}`][index + 16]);
+        const translate = pagesData[`${category}`][2][index];
+        const trainCounter = appStats[`${category}`][index];
+        const correctCounter = appStats[`${category}`][index + 8];
+        const errorCounter = appStats[`${category}`][index + 16];
+        allWords[`${word}`] = new Words(word, category, translate, trainCounter, correctCounter, errorCounter);
         index += 1;
       });
     }

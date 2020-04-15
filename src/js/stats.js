@@ -1,6 +1,6 @@
 import { createGameOverWindow, modal } from './playMode';
 import {
-  pagesData, appStats, restoreState
+  pagesData, appStats, restoreState,
 } from './main';
 import { createAllWord } from './allWords';
 import { deactivateNavigation } from './hamburger';
@@ -104,6 +104,12 @@ const createAllWordsInfo = (index, category) => {
   createPlayCount(appStats[`${category}`][index + 8], appStats[`${category}`][index + 16]);
 };
 
+const createNamePage = (text) => {
+  const statsCategory = document.createElement('div');
+  statsCategory.className = 'category-name';
+  statsCategory.textContent = text;
+  modal.append(statsCategory);
+};
 
 const createStatsThisWords = (eventTarget, index, target) => {
   deleteChild(modal.childNodes);
@@ -131,12 +137,6 @@ const createWordsModal = (arr, target) => {
   });
 };
 
-const createNamePage = (text) => {
-  const statsCategory = document.createElement('div');
-  statsCategory.className = 'category-name';
-  statsCategory.textContent = text;
-  modal.append(statsCategory);
-};
 
 const createAllStats = () => {
   createAllWord();
@@ -155,7 +155,7 @@ const createThisCategory = (target) => {
 
 export const statsListener = () => {
   buttonStats.addEventListener('click', () => {
-    console.log(event.target.parentNode)
+    console.log(event.target.parentNode);
     deactivateNavigation();
     createGameOverWindow();
     createCategoriesModal(pagesData.categories);
