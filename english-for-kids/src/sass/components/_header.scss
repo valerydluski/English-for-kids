@@ -1,0 +1,47 @@
+.header{
+    height: 80px;
+    background-color: $color-background-1;
+    color: $color-font-1;
+
+   
+
+.header__wrapper{   
+    align-items: center;
+    display: flex;
+    justify-content: space-between; 
+    height: 100%;
+    h1{
+        margin-right: 15%;
+        span{
+            display: none;
+        }
+        
+        img{
+            position: relative;
+            margin: 0 auto;
+            width: 80%;
+            max-width: 70px;   
+        }
+    }
+}
+}
+
+// animation: pulse-shrink 2s;
+
+@keyframes pulse-shrink {
+    25% {
+		transform: scale(1.2);
+	}
+
+	50% {
+		transform: scale(1);
+    }
+
+    75% {
+        transform: scale(1.2);
+    }
+    
+    100% {
+        transform: scale(1);
+    }
+}
