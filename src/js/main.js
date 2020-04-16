@@ -1,12 +1,16 @@
-import { listenerForCards } from './trainMode';
-import { listenerForPlayCards, createAudioForPlay, createButtonPlay } from './playMode';
-import { statsListener } from './stats';
+import listenerForCards from './trainMode';
+import {
+  listenerForPlayCards, createAudioForPlay, createButtonPlay, createGameOverWindow,
+} from './playMode';
+import switcherNavigation from './hamburger';
+import createAllWord from './statsForAllWords';
+
 
 export const pageStatus = {
   pageMode: '',
   category: '',
 };
-const emptyArr = ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'];
+export const emptyArr = ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'];
 export const appStats = {
   'Action (set A)': [],
 
@@ -93,9 +97,16 @@ const categoryText = document.getElementById('categoryText');
 export const mainImages = document.getElementById('main-images');
 export const navigation = document.getElementById('navigation');
 export const navigationLinks = navigation.querySelectorAll('a');
-export let audioCollection = [];
 // script for switcher
 const switcher = document.getElementById('myonoffswitch');
+const buttonStats = document.getElementById('buttonStats');
+const statsListener = () => {
+  buttonStats.addEventListener('click', () => {
+    switcherNavigation();
+    createGameOverWindow();
+    createAllWord();
+  });
+};
 
 const checkStatusSwitcer = () => {
   if (pageStatus.pageMode === 'train') {
@@ -106,35 +117,38 @@ const checkStatusSwitcer = () => {
 };
 
 const navigationChangeBackground = () => {
-  const NavigationClassList = navigation.classList;
+  const classesNavigation = navigation.classList;
   if (pageStatus.pageMode === 'play') {
-    NavigationClassList.add('navigation_play');
-    NavigationClassList.remove('navigation_train');
+    classesNavigation.add('navigation_play');
+    classesNavigation.remove('navigation_train');
   } else {
-    NavigationClassList.remove('navigation_play');
-    NavigationClassList.add('navigation_train');
+    classesNavigation.remove('navigation_play');
+    classesNavigation.add('navigation_train');
   }
 };
 
 const changeCardsBackground = (element) => {
+  const classes = element.classList;
   if (pageStatus.pageMode === 'play') {
-    element.classList.remove('main-card_train');
-    element.classList.add('main-card_play');
+    classes.remove('main-card_train');
+    classes.add('main-card_play');
   } else {
-    element.classList.remove('main-card_play');
-    element.classList.add('main-card_train');
+    classes.remove('main-card_play');
+    classes.add('main-card_train');
   }
 };
 
 const changeLinks = (str) => {
   const mainImagesLinks = mainImages.querySelectorAll('a');
   navigationLinks.forEach((element) => {
+    const elementItem = element;
     if (!(element.href.includes('index'))) {
-      element.href = `${str}.html`;
+      elementItem.href = `${str}.html`;
     }
   });
   mainImagesLinks.forEach((element) => {
-    element.href = `${str}.html`;
+    const elementItem = element;
+    elementItem.href = `${str}.html`;
   });
 };
 
@@ -249,7 +263,6 @@ const deleteCards = () => {
 
 export const addMainCards = (array, textForCardArr, mode, textForTranslateArr) => {
   if (mainImages.childNodes.length > 0) {
-    audioCollection = [];
     deleteCards();
   }
   let index = 0;
@@ -278,16 +291,6 @@ export const activeLink = () => {
   });
 };
 
-const resetListener = () => {
-  const resetButton = document.getElementById('buttonReset');
-  resetButton.addEventListener('click', () => {
-    restoreState();
-    for (const key in appStats) {
-      appStats[`${key}`] = emptyArr;
-    }
-    saveState();
-  });
-};
 
 const firstPage = () => {
   if (!checkActivePage()) {
@@ -295,7 +298,6 @@ const firstPage = () => {
     pageStatus.pageMode = 'train';
     saveState();
     statsListener();
-    resetListener();
   }
 };
 
@@ -303,7 +305,8 @@ window.onload = () => {
   restoreState();
   firstPage();
   checkStatusSwitcer();
-  addMainCards(pagesData[`${pageStatus.category}`][0], pagesData[`${pageStatus.category}`][1], pageStatus.pageMode, pagesData[`${pageStatus.category}`][2]);
+  const { category } = pageStatus;
+  addMainCards(pagesData[`${category}`][0], pagesData[`${category}`][1], pageStatus.pageMode, pagesData[`${category}`][2]);
   navigationChangeBackground();
   activeLink();
 };

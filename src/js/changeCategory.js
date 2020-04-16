@@ -14,18 +14,21 @@ const changeCategory = (str) => {
 };
 
 navigation.addEventListener('mousedown', (event) => {
-  if (event.target.classList.contains('navigation__link')) {
+  const classes = event.target.classList;
+  if (classes.contains('navigation__link')) {
     changeCategory(event.target.textContent);
     if (window.location.href !== event.target.href) {
       window.location.href = event.target.href;
     }
-    addMainCards(pagesData[`${pageStatus.category}`][0], pagesData[`${pageStatus.category}`][1], pageStatus.pageMode, pagesData[`${pageStatus.category}`][2]);
+    const { category } = pageStatus;
+    addMainCards(pagesData[`${category}`][0], pagesData[`${category}`][1], pageStatus.pageMode, pagesData[`${category}`][2]);
     activeLink();
   }
 });
 
 mainImages.addEventListener('mousedown', (event) => {
-  if (event.target.classList.contains('main-card')) {
+  const classes = event.target.classList;
+  if (classes.contains('main-card')) {
     changeCategory(event.target.textContent);
   }
   if (event.target.parentElement.classList.contains('main-card')) {

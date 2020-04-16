@@ -3,5 +3,4 @@ import './js/hamburger';
 import './js/changeCategory';
 import './js/trainMode';
 import './js/playMode';
-import './js/stats';
-import './js/allWords';
+import './js/statsForAllWords';

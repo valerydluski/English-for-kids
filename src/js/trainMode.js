@@ -51,7 +51,7 @@ const trainCounter = (id) => {
   saveState();
 };
 
-export const listenerForCards = (card) => {
+const listenerForCards = (card) => {
   card.addEventListener('click', (event) => {
     trainCounter(event.currentTarget.id);
     const str = event.currentTarget.childNodes[0].id;
@@ -62,3 +62,5 @@ export const listenerForCards = (card) => {
     }
   });
 };
+
+export default listenerForCards;

@@ -1,6 +1,6 @@
 // script for play mode
 import {
-  audioCollection, pageStatus, restoreState, saveState, appStats,
+  pageStatus, restoreState, saveState, appStats,
 } from './main';
 
 
@@ -10,6 +10,7 @@ const buttonRepeat = document.createElement('img');
 let currentAudio;
 const indicator = document.createElement('div');
 let mistakesCounter;
+const audioCollection = [];
 export const modal = document.createElement('div');
 
 const playAudioForGame = (audio) => {

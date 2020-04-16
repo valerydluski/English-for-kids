@@ -1,32 +1,37 @@
 // sript for hamburger
-
-export const hamburger = document.getElementById('hamburger');
+const hamburger = document.getElementById('hamburger');
 const navigation = document.getElementById('navigation');
+const classesHamburger = hamburger.classList;
+const classesNavigation = navigation.classList;
 
-export const deactivateNavigation = () => {
-  hamburger.classList.remove('active');
-  hamburger.classList.add('not-active');
-  navigation.classList.remove('navigation-active');
+const switcherNavigation = () => {
+  classesHamburger.toggle('active');
+  classesHamburger.toggle('not-active');
+  classesNavigation.toggle('navigation-active');
 };
 
-window.addEventListener('mousedown', (event) => {
+export default switcherNavigation;
+
+const windowListener = (event) => {
   const { target } = event;
   if (target.classList.contains('navigation__img')) {
+    window.removeEventListener('mousedown', windowListener);
     return;
   }
   if (target !== navigation && target.parentNode !== navigation
-    && target !== hamburger && target.parentNode !== hamburger) {
-    deactivateNavigation();
+  && target !== hamburger && target.parentNode !== hamburger) {
+    switcherNavigation();
+    window.removeEventListener('mousedown', windowListener);
   }
-});
+};
+
+
+const closeNavigation = () => {
+  window.addEventListener('mousedown', windowListener);
+};
 
 
 hamburger.addEventListener('mousedown', () => {
-  if (hamburger.classList[1] === 'active') {
-    deactivateNavigation();
-  } else {
-    hamburger.classList.remove('not-active');
-    hamburger.classList.add('active');
-    navigation.classList.add('navigation-active');
-  }
+  switcherNavigation();
+  closeNavigation();
 });

@@ -57,8 +57,8 @@
 
 .modal__close-icon {
     position: absolute;
-    top: 30px;
-    right: 26px;
+    top: 1vw;
+    right: 5vw;
     width: 10vw;
     height: 10vw;
     cursor: pointer;
@@ -66,8 +66,8 @@
 
 .modal__reset-icon {
     position: absolute;
-    top: 30px;
-    left: 26px;
+    top: 1vw;
+    left: 5vw;
     width: 10vw;
     height: 10vw;
     cursor: pointer;
@@ -76,6 +76,7 @@
 .table_stats{
     position: relative;
     margin-left:0;
+    margin-top: 2vw;
     display: grid;
     grid-template-columns: repeat(7, 13vw);
     grid-template-rows: repeat(65, 3vw);
@@ -98,6 +99,10 @@
 }
 
 .modal__close-icon:hover{
+    animation: pulse-shrink 2s linear infinite;
+    cursor: pointer;
+}
+.modal__reset-icon:hover{
     animation: pulse-shrink 2s linear infinite;
     cursor: pointer;
 }
