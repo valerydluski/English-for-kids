@@ -5,6 +5,8 @@ import { modal } from './playMode';
 
 const allWords = {};
 let tableForAllStats;
+let resetListener;
+let createAllWord;
 class Words {
   constructor(name, category, translate, train, correct, error) {
     this.name = name;
@@ -15,13 +17,26 @@ class Words {
     this.error = error;
   }
 }
+
 const arrForTableHeader = ['word', 'category', 'translate', 'train', 'correct', 'error', 'percent'];
 const sortAlphabet = (object) => {
   const newObject = {};
   Object.keys(object).sort().forEach((name) => { newObject[name] = object[name]; });
   return newObject;
 };
+
+const sortAlphabetReverse = (object) => {
+  const newObject = {};
+  Object.keys(object).sort().reverse().forEach((name) => { newObject[name] = object[name]; });
+  return newObject;
+};
+
+const DigitalSort = (object, type) => Object.values(object).sort((a, b) => b.train - a.train);
+
+const DigitalSortReverse = (object, type) => Object.values(object).sort((a, b) => a.train - b.train);
+
 let isWordSort = false;
+let isTrainSort = false;
 const tableDeleteChild = () => {
   while (tableForAllStats.childElementCount > 7) {
     tableForAllStats.removeChild(tableForAllStats.lastChild);
@@ -34,7 +49,14 @@ const modalDeleteChild = () => {
 };
 
 const createAllStatsLink = () => {
-  console.log('link back');
+  const allStatsLink = document.createElement('div');
+  allStatsLink.className = 'category-stats';
+  allStatsLink.textContent = 'All stats';
+  modal.append(allStatsLink);
+  allStatsLink.addEventListener('click', () => {
+    modalDeleteChild();
+    createAllWord();
+  });
 };
 
 const createNamePage = (text) => {
@@ -177,9 +199,21 @@ const clickerHeader = () => {
   }
   if (targetId === 'word' && isWordSort) {
     tableDeleteChild();
-    createAllWordsStats(allWords);
+    createAllWordsStats(sortAlphabetReverse(allWords));
     isWordSort = false;
   }
+  if (targetId === 'train' && !(isTrainSort)) {
+    tableDeleteChild();
+    createAllWordsStats(DigitalSortReverse(allWords, targetId));
+    isTrainSort = true;
+    return;
+  }
+  if (targetId === 'train' && isTrainSort) {
+    tableDeleteChild();
+    createAllWordsStats(DigitalSort(allWords, targetId));
+    isTrainSort = false;
+  }
+  
 };
 
 const createHeaderTableElement = (element) => {
@@ -216,7 +250,7 @@ const createAllStatsHeader = () => {
   createAllWordsStats(allWords);
 };
 
-const createAllWord = () => {
+createAllWord = () => {
   pagesData.categories.forEach((category) => {
     let index = 0;
     if (category !== 'Main Page') {
@@ -238,7 +272,7 @@ const resetStats = () => {
   return appStats;
 };
 
-const resetListener = () => {
+resetListener = () => {
   const resetButton = document.getElementById('buttonReset');
   resetButton.addEventListener('click', () => {
     restoreState();
@@ -248,5 +282,6 @@ const resetListener = () => {
     createAllWord();
   });
 };
+// arr.sort((a, b) => a.age > b.age ? 1 : -1);
 
 export default createAllWord;

@@ -8,6 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 5;
 }
 
 .modal {
@@ -78,12 +79,21 @@
     margin-left:0;
     margin-top: 2vw;
     display: grid;
-    grid-template-columns: repeat(7, 13vw);
-    grid-template-rows: repeat(65, 3vw);
+    grid-template-columns: repeat(7, 125px);
+    grid-template-rows: repeat(65, 30px);
+
+    @media (max-width: 1019px) {
+        margin-top: 2vw;
+        grid-template-columns: repeat(7, 13vw);
+        grid-template-rows: repeat(65, 3vw); 
+     }
 }
 .table_element{
-    font-size: 1.5vw;
+    font-size: 18px;
     border:1px solid $color-background-5;
+    @media (max-width: 1019px) {
+        font-size: 1.5vw; 
+     }
 }
 
 .table_header:hover{
@@ -95,6 +105,7 @@
     margin-top: 80px;
     padding-top: 10vw;
     width: 100%;
+    max-width: 1020px;
     justify-content: normal;
 }
 
