@@ -55,7 +55,7 @@ export const restoreState = () => {
   appStats['Animal (set B)'] = (localStorage.getItem('Animal (set B)')) ? localStorage.getItem('Animal (set B)').split(',') : [emptyArr];
   appStats.Clothes = (localStorage.getItem('Clothes')) ? localStorage.getItem('Clothes').split(',') : [emptyArr];
   appStats.Emotion = (localStorage.getItem('Emotion')) ? localStorage.getItem('Emotion').split(',') : [emptyArr];
-  difficultWordsCollection = (localStorage.getItem('difficultWordsCollection')) ? localStorage.getItem('difficultWordsCollection').split(',') : [emptyArr];
+  difficultWordsCollection = (localStorage.getItem('difficultWordsCollection')) ? localStorage.getItem('difficultWordsCollection').split(',') : '';
 };
 
 export const pagesData = {
@@ -303,18 +303,21 @@ export const addMainCards = (array, textForCardArr, mode, textForTranslateArr) =
 };
 
 const createDifficultWordsPage = () => {
-  createDifficultWordsArr();
-  if (difficultWordsArr.length > 0) {
-    if (pageStatus.category !== 'Main Page' && pageStatus.pageMode === 'play') {
-      createButtonPlay();
-    }
-    difficultWordsArr.forEach((element) => {
-      const word = element[0];
-      const category = element[1];
-      const positionInCategory = element[2];
-      createMainCard(`${word}.jpg`, word, pageStatus.pageMode, pagesData[`${category}`][2][positionInCategory], positionInCategory, category);
-    });
+  console.log(localStorage.getItem('difficultWordsCollection')) 
+  if (localStorage.getItem('difficultWordsCollection') === '') {
+    categoryText.textContent = `${pageStatus.category}`;
+    return;
   }
+  createDifficultWordsArr();
+  if (pageStatus.category !== 'Main Page' && pageStatus.pageMode === 'play') {
+    createButtonPlay();
+  }
+  difficultWordsArr.forEach((element) => {
+    const word = element[0];
+    const category = element[1];
+    const positionInCategory = element[2];
+    createMainCard(`${word}.jpg`, word, pageStatus.pageMode, pagesData[`${category}`][2][positionInCategory], positionInCategory, category);
+  });
 };
 // active link
 export const activeLink = () => {

@@ -147,12 +147,13 @@ const addAnswerIndicator = (bool) => {
 
 const playCounter = (id, isAnswer, category) => {
   let cardCategory = category;
-  if (category !== 'Difficult Words') {
+  if (pageStatus.category !== 'Difficult Words') {
     cardCategory = pageStatus.category;
   }
   let numberCard = id.slice(4);
   restoreState();
   if (isAnswer) {
+    console.log(cardCategory);
     numberCard = +numberCard + 8;
     let counter = (appStats[`${cardCategory}`][numberCard]);
     counter = +counter + 1;
