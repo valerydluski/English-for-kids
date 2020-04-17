@@ -153,7 +153,6 @@ const playCounter = (id, isAnswer, category) => {
   let numberCard = id.slice(4);
   restoreState();
   if (isAnswer) {
-    console.log(cardCategory);
     numberCard = +numberCard + 8;
     let counter = (appStats[`${cardCategory}`][numberCard]);
     counter = +counter + 1;
@@ -179,7 +178,7 @@ const checkAnswer = (id, target, currentTarget, category) => {
     setTimeout(() => audioChoice(audioCollection), 1000);
     target.classList.add('not-active-card');
   } else {
-    playCounter(currentTarget, false);
+    playCounter(currentTarget, false, category);
     mistakesCounter += 1;
     addAnswerIndicator(false);
     playAudioForGame('https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/rslang/english-for.kids.data/audio/error.mp3');
