@@ -329,9 +329,11 @@ const createAllStatsHeader = () => {
 
 createAllWord = () => {
   pagesData.categories.forEach((category) => {
+    
     let index = 0;
     if (category !== 'Main Page') {
       pagesData[`${category}`][1].forEach((word) => {
+        restoreState();
         const translate = pagesData[`${category}`][2][index];
         const trainCounter = appStats[`${category}`][index];
         const correctCounter = appStats[`${category}`][index + 8];
