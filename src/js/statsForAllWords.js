@@ -329,7 +329,6 @@ const createAllStatsHeader = () => {
 
 createAllWord = () => {
   pagesData.categories.forEach((category) => {
-    
     let index = 0;
     if (category !== 'Main Page') {
       pagesData[`${category}`][1].forEach((word) => {
