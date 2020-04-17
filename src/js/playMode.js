@@ -46,18 +46,20 @@ const shuffleAudioCollection = () => {
 };
 
 const createModalContent = () => {
-  const modalImage = document.createElement('img');
-  let str;
-  const modalText = document.createElement('h2');
-  modalText.textContent = `You made ${mistakesCounter} mistake(s)`;
-  if (mistakesCounter === 0) {
-    str = 'good';
-  } else {
-    modal.append(modalText);
-    str = 'bad';
+  if (pageStatus.category !== 'Main Page') {
+    const modalImage = document.createElement('img');
+    let str;
+    const modalText = document.createElement('h2');
+    modalText.textContent = `You made ${mistakesCounter} mistake(s)`;
+    if (mistakesCounter === 0) {
+      str = 'good';
+    } else {
+      modal.append(modalText);
+      str = 'bad';
+    }
+    modalImage.src = `./assets/img/${str}.png`;
+    modal.append(modalImage);
   }
-  modalImage.src = `./assets/img/${str}.png`;
-  modal.append(modalImage);
 };
 
 const closeModal = (event) => {
@@ -143,30 +145,34 @@ const addAnswerIndicator = (bool) => {
   indicator.append(answerIndicator);
 };
 
-const playCounter = (id, isAnswer) => {
+const playCounter = (id, isAnswer, category) => {
+  let cardCategory = category;
+  if (category !== 'Difficult Words') {
+    cardCategory = pageStatus.category;
+  }
   let numberCard = id.slice(4);
   restoreState();
   if (isAnswer) {
     numberCard = +numberCard + 8;
-    let counter = (appStats[`${pageStatus.category}`][numberCard]);
+    let counter = (appStats[`${cardCategory}`][numberCard]);
     counter = +counter + 1;
-    (appStats[`${pageStatus.category}`][numberCard]) = counter;
+    (appStats[`${cardCategory}`][numberCard]) = counter;
     saveState();
   } else {
     numberCard = +numberCard + 16;
-    let counter = (appStats[`${pageStatus.category}`][numberCard]);
+    let counter = (appStats[`${cardCategory}`][numberCard]);
     counter = +counter + 1;
-    (appStats[`${pageStatus.category}`][numberCard]) = counter;
+    (appStats[`${cardCategory}`][numberCard]) = counter;
     saveState();
   }
 };
 
-const checkAnswer = (id, target, currentTarget) => {
+const checkAnswer = (id, target, currentTarget, category) => {
   if (target.classList.contains('not-active-card') || currentAudio === undefined || target.classList.contains('play-card')) {
     return;
   }
   if (currentAudio.includes(id)) {
-    playCounter(currentTarget, true);
+    playCounter(currentTarget, true, category);
     addAnswerIndicator(true);
     playAudioForGame('https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/rslang/english-for.kids.data/audio/correct.mp3');
     setTimeout(() => audioChoice(audioCollection), 1000);
@@ -179,8 +185,8 @@ const checkAnswer = (id, target, currentTarget) => {
   }
 };
 
-export const listenerForPlayCards = (card) => {
+export const listenerForPlayCards = (card, category) => {
   card.addEventListener('click', (event) => {
-    checkAnswer(event.target.id, event.target, event.currentTarget.id);
+    checkAnswer(event.target.id, event.target, event.currentTarget.id, category);
   });
 };

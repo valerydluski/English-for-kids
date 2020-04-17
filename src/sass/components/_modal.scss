@@ -74,6 +74,15 @@
     cursor: pointer;
 }
 
+.modal__difficult-icon {
+    position: absolute;
+    top: 1vw;
+    left: 45%;
+    width: 10vw;
+    height: 10vw;
+    cursor: pointer;
+}
+
 .table_stats{
     position: relative;
     margin-left:0;
@@ -90,7 +99,7 @@
 }
 .table_element{
     font-size: 18px;
-    border:1px solid $color-background-5;
+    border:1px solid #e1e8f0;
     @media (max-width: 1019px) {
         font-size: 1.5vw; 
      }
@@ -114,6 +123,11 @@
     cursor: pointer;
 }
 .modal__reset-icon:hover{
+    animation: pulse-shrink 2s linear infinite;
+    cursor: pointer;
+}
+
+.modal__difficult-icon:hover{
     animation: pulse-shrink 2s linear infinite;
     cursor: pointer;
 }

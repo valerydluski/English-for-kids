@@ -42,18 +42,22 @@ const playAudioForTrain = (str) => {
   audioTrain.autoplay = true;
 };
 
-const trainCounter = (id) => {
+const trainCounter = (id, category) => {
+  let cardCategory = category;
+  if (category === undefined) {
+    cardCategory = pageStatus.category;
+  }
   const numberCard = id.slice(4);
   restoreState();
-  let counter = (appStats[`${pageStatus.category}`][numberCard]);
+  let counter = (appStats[`${cardCategory}`][numberCard]);
   counter = +counter + 1;
-  (appStats[`${pageStatus.category}`][numberCard]) = counter;
+  (appStats[`${cardCategory}`][numberCard]) = counter;
   saveState();
 };
 
-const listenerForCards = (card) => {
+const listenerForCards = (card, category) => {
   card.addEventListener('click', (event) => {
-    trainCounter(event.currentTarget.id);
+    trainCounter(event.currentTarget.id, category);
     const str = event.currentTarget.childNodes[0].id;
     playAudioForTrain(str);
     if (event.target.classList.contains('button_reverse')) {

@@ -3,9 +3,10 @@ import {
   listenerForPlayCards, createAudioForPlay, createButtonPlay, createGameOverWindow,
 } from './playMode';
 import switcherNavigation from './hamburger';
-import createAllWord from './statsForAllWords';
+import { createAllWord } from './statsForAllWords';
 
-
+let difficultWordsCollection;
+let difficultWordsArr;
 export const pageStatus = {
   pageMode: '',
   category: '',
@@ -40,6 +41,7 @@ export const saveState = () => {
   localStorage.setItem('Animal (set B)', appStats['Animal (set B)']);
   localStorage.setItem('Clothes', appStats.Clothes);
   localStorage.setItem('Emotion', appStats.Emotion);
+  localStorage.setItem('difficultWordsCollection', difficultWordsCollection);
 };
 
 export const restoreState = () => {
@@ -53,6 +55,7 @@ export const restoreState = () => {
   appStats['Animal (set B)'] = (localStorage.getItem('Animal (set B)')) ? localStorage.getItem('Animal (set B)').split(',') : [emptyArr];
   appStats.Clothes = (localStorage.getItem('Clothes')) ? localStorage.getItem('Clothes').split(',') : [emptyArr];
   appStats.Emotion = (localStorage.getItem('Emotion')) ? localStorage.getItem('Emotion').split(',') : [emptyArr];
+  difficultWordsCollection = (localStorage.getItem('difficultWordsCollection')) ? localStorage.getItem('difficultWordsCollection').split(',') : [emptyArr];
 };
 
 export const pagesData = {
@@ -226,7 +229,24 @@ const createCardImage = (element, card, textForCard) => {
   }
 };
 
-const createMainCard = (element, textForCard, mode, textForTranslate, index) => {
+const createDifficultWordsArr = () => {
+  difficultWordsArr = localStorage.getItem('difficultWordsCollection').split(',');
+  const splitWords = () => {
+    const word = [];
+    for (let i = 0; i < difficultWordsArr.length; i += 3) {
+      if (difficultWordsArr[i + 1] !== undefined) {
+        word.push([difficultWordsArr[i], difficultWordsArr[i + 1], difficultWordsArr[i + 2]]);
+      } else {
+        word.push([difficultWordsArr[i]]);
+      }
+    }
+    return word;
+  };
+  difficultWordsArr = splitWords(difficultWordsArr);
+};
+
+
+const createMainCard = (element, textForCard, mode, textForTranslate, index, category) => {
   categoryText.textContent = `${pageStatus.category}`;
   if (checkActivePage()) {
     const wordCard = document.createElement('div');
@@ -238,10 +258,10 @@ const createMainCard = (element, textForCard, mode, textForTranslate, index) => 
       createCardText(wordCard, textForCard, textForTranslate);
     }
     if (pageStatus.pageMode === 'train') {
-      listenerForCards(wordCard);
+      listenerForCards(wordCard, category);
     }
     if (pageStatus.pageMode === 'play') {
-      listenerForPlayCards(wordCard);
+      listenerForPlayCards(wordCard, category);
     }
   } else {
     const card = document.createElement('a');
@@ -281,6 +301,21 @@ export const addMainCards = (array, textForCardArr, mode, textForTranslateArr) =
     createButtonPlay();
   }
 };
+
+const createDifficultWordsPage = () => {
+  createDifficultWordsArr();
+  if (difficultWordsArr.length > 0) {
+    if (pageStatus.category !== 'Main Page' && pageStatus.pageMode === 'play') {
+      createButtonPlay();
+    }
+    difficultWordsArr.forEach((element) => {
+      const word = element[0];
+      const category = element[1];
+      const positionInCategory = element[2];
+      createMainCard(`${word}.jpg`, word, pageStatus.pageMode, pagesData[`${category}`][2][positionInCategory], positionInCategory, category);
+    });
+  }
+};
 // active link
 export const activeLink = () => {
   navigationLinks.forEach((element) => {
@@ -306,7 +341,11 @@ window.onload = () => {
   firstPage();
   checkStatusSwitcer();
   const { category } = pageStatus;
-  addMainCards(pagesData[`${category}`][0], pagesData[`${category}`][1], pageStatus.pageMode, pagesData[`${category}`][2]);
+  if (category === 'Difficult Words') {
+    createDifficultWordsPage();
+  } else {
+    addMainCards(pagesData[`${category}`][0], pagesData[`${category}`][1], pageStatus.pageMode, pagesData[`${category}`][2]);
+  }
   navigationChangeBackground();
   activeLink();
 };
