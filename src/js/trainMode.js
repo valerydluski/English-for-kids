@@ -11,16 +11,14 @@ const hideTranslate = (child) => {
   child[2].classList.remove('button_hidden');
 };
 
-const reverseCardBeginState = () => {
-  // eslint-disable-next-line no-restricted-globals
-  const card = event.currentTarget;
-  card.classList.add('run-animation');
+const reverseCardBeginState = ({ currentTarget }) => {
+  currentTarget.classList.add('run-animation');
   function deleteAnimation() {
-    card.classList.remove('run-animation');
+    currentTarget.classList.remove('run-animation');
   }
   setTimeout(deleteAnimation, 1000);
-  hideTranslate(card.childNodes[1].childNodes);
-  card.removeEventListener('mouseleave', reverseCardBeginState);
+  hideTranslate(currentTarget.childNodes[1].childNodes);
+  currentTarget.removeEventListener('mouseleave', reverseCardBeginState);
 };
 
 
