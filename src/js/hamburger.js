@@ -19,10 +19,13 @@ const windowListener = (event) => {
     window.removeEventListener('mousedown', windowListener);
     return;
   }
+  if (!(classesNavigation.contains('navigation-active'))) {
+    window.removeEventListener('mousedown', windowListener);
+  }
   if (target !== navigation && target.parentNode !== navigation
   && target !== hamburger && target.parentNode !== hamburger) {
-    switcherNavigation();
     window.removeEventListener('mousedown', windowListener);
+    switcherNavigation();
   }
 };
 
