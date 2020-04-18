@@ -1,6 +1,7 @@
 // script for play mode
+import { pageStatus, appStats } from './constants';
 import {
-  pageStatus, restoreState, saveState, appStats,
+  restoreState, saveState,
 } from './main';
 
 

@@ -1,5 +1,6 @@
+import { pageStatus, appStats } from './constants';
 import {
-  saveState, restoreState, pageStatus, appStats,
+  saveState, restoreState,
 } from './main';
 
 // reverse card

@@ -1,5 +1,6 @@
+import { emptyArr, appStats, pagesData } from './constants';
 import {
-  pagesData, appStats, restoreState, saveState, emptyArr,
+  restoreState, saveState,
 } from './main';
 import { modal } from './playMode';
 
@@ -39,27 +40,13 @@ const sortAlphabetReverse = (object) => {
   return newObject;
 };
 
-const DigitalSort = (object) => Object.values(object).sort((a, b) => b.train - a.train);
+const DigitalSort = (object, type) => Object.values(object).sort((a, b) => b[type] - a[type]);
 
-const DigitalSortReverse = (object) => Object.values(object).sort((a, b) => a.train - b.train);
-
-const correctSort = (object) => Object.values(object).sort((a, b) => b.correct - a.correct);
-
-const correctSortReverse = (object) => Object.values(object).sort((a, b) => a.correct - b.correct);
-
-const errorSort = (object) => Object.values(object).sort((a, b) => b.error - a.error);
-
-const errorSortReverse = (object) => Object.values(object).sort((a, b) => a.error - b.error);
-
-const percentSort = (object) => Object.values(object).sort((a, b) => b.percent - a.percent);
-
-const percentSortReverse = (object) => Object.values(object).sort((a, b) => a.percent - b.percent);
+const DigitalSortReverse = (object, type) => Object.values(object).sort((a, b) => a[type] - b[type]);
 
 let isWordSort = false;
-let isTrainSort = false;
-let isCorrectSort = false;
-let isErorrSort = false;
-let isPercentSort = false;
+let isDigitalSort = false;
+
 const tableDeleteChild = () => {
   while (tableForAllStats.childElementCount > 7) {
     tableForAllStats.removeChild(tableForAllStats.lastChild);
@@ -205,6 +192,7 @@ const createAllWordsStats = (object) => {
 };
 
 const clickerHeader = () => {
+  const digitalSortParametr = ['train', 'correct', 'error', 'percent'];
   const targetId = event.target.id;
   if (targetId === 'word' && !(isWordSort)) {
     tableDeleteChild();
@@ -217,49 +205,16 @@ const clickerHeader = () => {
     createAllWordsStats(sortAlphabetReverse(allWords));
     isWordSort = false;
   }
-  if (targetId === 'train' && !(isTrainSort)) {
+  if (digitalSortParametr.includes(targetId) && !(isDigitalSort)) {
     tableDeleteChild();
     createAllWordsStats(DigitalSortReverse(allWords, targetId));
-    isTrainSort = true;
+    isDigitalSort = true;
     return;
   }
-  if (targetId === 'train' && isTrainSort) {
+  if (digitalSortParametr.includes(targetId) && isDigitalSort) {
     tableDeleteChild();
     createAllWordsStats(DigitalSort(allWords, targetId));
-    isTrainSort = false;
-  }
-  if (targetId === 'correct' && !(isCorrectSort)) {
-    tableDeleteChild();
-    createAllWordsStats(correctSort(allWords, targetId));
-    isCorrectSort = true;
-    return;
-  }
-  if (targetId === 'correct' && isCorrectSort) {
-    tableDeleteChild();
-    createAllWordsStats(correctSortReverse(allWords, targetId));
-    isCorrectSort = false;
-  }
-  if (targetId === 'error' && !(isErorrSort)) {
-    tableDeleteChild();
-    createAllWordsStats(errorSort(allWords, targetId));
-    isErorrSort = true;
-    return;
-  }
-  if (targetId === 'error' && isErorrSort) {
-    tableDeleteChild();
-    createAllWordsStats(errorSortReverse(allWords, targetId));
-    isErorrSort = false;
-  }
-  if (targetId === 'percent' && !(isPercentSort)) {
-    tableDeleteChild();
-    createAllWordsStats(percentSort(allWords, targetId));
-    isPercentSort = true;
-    return;
-  }
-  if (targetId === 'percent' && isPercentSort) {
-    tableDeleteChild();
-    createAllWordsStats(percentSortReverse(allWords, targetId));
-    isPercentSort = false;
+    isDigitalSort = false;
   }
 };
 
@@ -292,7 +247,7 @@ const createDifficultWordsCollection = (colletion) => {
 difficultListener = () => {
   const difficultButton = document.getElementById('buttonDifficult');
   difficultButton.addEventListener('click', () => {
-    createDifficultWordsCollection(errorSort(allWords));
+    createDifficultWordsCollection(DigitalSort(allWords, 'error'));
   });
 };
 
@@ -331,8 +286,8 @@ createAllWord = () => {
   pagesData.categories.forEach((category) => {
     let index = 0;
     if (category !== 'Main Page') {
+      restoreState();
       pagesData[`${category}`][1].forEach((word) => {
-        restoreState();
         const translate = pagesData[`${category}`][2][index];
         const trainCounter = appStats[`${category}`][index];
         const correctCounter = appStats[`${category}`][index + 8];

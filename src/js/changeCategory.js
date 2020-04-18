@@ -1,11 +1,11 @@
 import {
-  pageStatus, saveState, restoreState, addMainCards, pagesData, activeLink,
+  pageStatus, pagesData, mainImages, navigation,
+} from './constants';
+import {
+  saveState, restoreState, addMainCards, activeLink,
 } from './main';
 
-
 // change category
-const mainImages = document.getElementById('main-images');
-const navigation = document.getElementById('navigation');
 
 const changeCategory = (str) => {
   restoreState();

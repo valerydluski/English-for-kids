@@ -1,6 +1,7 @@
+import { navigation } from './constants';
+
 // sript for hamburger
 const hamburger = document.getElementById('hamburger');
-const navigation = document.getElementById('navigation');
 const classesHamburger = hamburger.classList;
 const classesNavigation = navigation.classList;
 
