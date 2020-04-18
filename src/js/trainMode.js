@@ -11,7 +11,8 @@ const hideTranslate = (child) => {
   child[2].classList.remove('button_hidden');
 };
 
-const reverseCardBeginState = (event) => {
+const reverseCardBeginState = () => {
+  // eslint-disable-next-line no-restricted-globals
   const card = event.currentTarget;
   card.classList.add('run-animation');
   function deleteAnimation() {
@@ -33,7 +34,7 @@ const reverseCard = (card) => {
   changeText(card.childNodes[1].childNodes);
   function createMouseleave() {
     card.classList.remove('run-animation');
-    card.addEventListener('mouseleave', (event) => reverseCardBeginState(event));
+    card.addEventListener('mouseleave', reverseCardBeginState);
   }
   setTimeout(createMouseleave, 1000);
 };
