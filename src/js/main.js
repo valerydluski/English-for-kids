@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import {
   pageStatus, emptyArr, appStats, pagesData, mainImages, navigation,
 } from './constants';
@@ -155,6 +156,9 @@ const createCardText = (card, textForCard, textForTranslate) => {
 
 const createCardImage = (element, card, textForCard) => {
   const image = document.createElement('img');
+  if (pageStatus.pageMode === 'play') {
+    image.className = 'play-image';
+  }
   image.src = `./assets/img/${element}`;
   image.id = textForCard;
   card.append(image);

@@ -1,8 +1,8 @@
-.header__switch{ 
-  font-family: 'LatoLight';
-  display:flex; 
-  align-items:center;
-  justify-content:center;
+.header__switch {
+  font-family: 'LatoLight', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   overflow: hidden;
   text-align: left;
@@ -14,9 +14,8 @@
 }
 
 .onoffswitch {
-  position: relative; 
+  position: relative;
   width: 80px;
-  
 }
 
 .onoffswitch-checkbox {
@@ -24,56 +23,64 @@
 }
 
 .onoffswitch-label {
-  display: block; 
-  overflow: hidden; 
+  display: block;
+  overflow: hidden;
   cursor: pointer;
 }
 
 .onoffswitch-inner {
-  display: block; 
-  width: 200%; 
+  display: block;
+  width: 200%;
   margin-left: -100%;
   transition: margin 0.3s ease-in 0s;
 }
-.onoffswitch-inner:before, 
-.onoffswitch-inner:after {
-  display: block; 
+
+.onoffswitch-inner::before,
+.onoffswitch-inner::after {
+  display: block;
   float: left;
-  width: 50%; 
-  height: 30px; 
-  padding: 0; 
+  width: 50%;
+  height: 30px;
+  padding: 0;
   line-height: 30px;
-  font-size: 14px; 
-  color: $color-background-5;  
+  font-size: 14px;
+  color: $color-background-5;
   font-weight: bold;
   box-sizing: border-box;
 }
-.onoffswitch-inner:before {
+
+.onoffswitch-inner::before {
   content: "Train";
   padding-left: 10px;
-  background-color: $color-background-2; 
+  background-color: $color-background-2;
   color: $color-background-5;
 }
-.onoffswitch-inner:after {
+
+.onoffswitch-inner::after {
   content: "Play";
   padding-right: 10px;
-  background-color: $color-background-5; 
+  background-color: $color-background-5;
   color: $color-background-2;
   text-align: right;
 }
+
 .onoffswitch-switch {
-  display: block; 
-  width: 18px; 
+  display: block;
+  width: 18px;
   margin: 6px;
   background: $color-background-3;
-  position: absolute; top: 0; bottom: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
   right: 56px;
   border-radius: 100%;
-  transition: all 0.3s ease-in 0s; 
+  transition: all 0.3s ease-in 0s;
 }
+
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
   margin-left: 0;
 }
+
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-  right: 0px; 
+  right: 0;
 }

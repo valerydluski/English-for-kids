@@ -1,5 +1,6 @@
 // script for play mode
 import { pageStatus, appStats } from './constants';
+// eslint-disable-next-line import/no-cycle
 import {
   restoreState, saveState,
 } from './main';

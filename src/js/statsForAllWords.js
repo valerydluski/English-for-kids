@@ -1,3 +1,5 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable import/no-cycle */
 import { emptyArr, appStats, pagesData } from './constants';
 import {
   restoreState, saveState,
@@ -7,6 +9,7 @@ import { modal } from './playMode';
 const allWords = {};
 let tableForAllStats;
 let resetListener;
+// eslint-disable-next-line import/no-mutable-exports
 export let createAllWord;
 let difficultListener;
 let difficultWords;
@@ -40,9 +43,9 @@ const sortAlphabetReverse = (object) => {
   return newObject;
 };
 
-const DigitalSort = (object, type) => Object.values(object).sort((a, b) => b[type] - a[type]);
+const DigitalSort = (obj, type) => Object.values(obj).sort((a, b) => b[type] - a[type]);
 
-const DigitalSortReverse = (object, type) => Object.values(object).sort((a, b) => a[type] - b[type]);
+const DigitalSortReverse = (obj, type) => Object.values(obj).sort((a, b) => a[type] - b[type]);
 
 let isWordSort = false;
 let isDigitalSort = false;
@@ -91,7 +94,7 @@ const createTrainCount = (text) => {
   modal.append(trainCount);
 };
 
-const createPlayCount = (correct, wrong) => {
+const createPlayCount = (correct, wrong, percent) => {
   const correctCount = document.createElement('div');
   const wrongCount = document.createElement('div');
   correctCount.className = 'category-name';
@@ -100,14 +103,11 @@ const createPlayCount = (correct, wrong) => {
   wrongCount.textContent = `wrong: ${wrong}`;
   modal.append(correctCount);
   modal.append(wrongCount);
-  if ((+correct + wrong) > 0) {
-    const correctCounter = Number(correct);
-    const errorCounter = Number(wrong);
-    const countPercent = Math.ceil((correctCounter / (correctCounter + errorCounter)) * 100);
-    const percent = document.createElement('div');
-    percent.className = 'category-name';
-    percent.textContent = `percent: ${countPercent}%`;
-    modal.append(percent);
+  const percentCount = document.createElement('div');
+  percentCount.className = 'category-name';
+  percentCount.textContent = `percent: ${percent}%`;
+  if (percent !== 0) {
+    modal.append(percentCount);
   }
 };
 
@@ -115,7 +115,7 @@ const createAllWordsInfo = (word) => {
   restoreState();
   createTranslateModal(allWords[`${word}`].translate);
   createTrainCount(allWords[`${word}`].train);
-  createPlayCount(allWords[`${word}`].correct, allWords[`${word}`].error);
+  createPlayCount(allWords[`${word}`].correct, allWords[`${word}`].error, allWords[`${word}`].percent);
 };
 
 const createStatsThisWords = (word) => {
@@ -191,7 +191,7 @@ const createAllWordsStats = (object) => {
   });
 };
 
-const clickerHeader = () => {
+const clickerHeader = (event) => {
   const digitalSortParametr = ['train', 'correct', 'error', 'percent'];
   const targetId = event.target.id;
   if (targetId === 'word' && !(isWordSort)) {
@@ -225,7 +225,7 @@ const createHeaderTableElement = (element) => {
   headerElement.id = `${element}`;
   headerElement.textContent = `${element}`;
   headerElement.addEventListener('click', (event) => {
-    clickerHeader(event.target);
+    clickerHeader(event);
   });
   tableForAllStats.append(headerElement);
 };
@@ -244,6 +244,7 @@ const createDifficultWordsCollection = (colletion) => {
   window.location.href = 'train.html';
 };
 
+// eslint-disable-next-line prefer-const
 difficultListener = () => {
   const difficultButton = document.getElementById('buttonDifficult');
   difficultButton.addEventListener('click', () => {

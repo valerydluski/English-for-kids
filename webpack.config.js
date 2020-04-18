@@ -58,16 +58,19 @@ module.exports = (env, options) => {
         hash: false,
         template: './src/index.html',
         filename: 'index.html',
+        favicon: './src/assets/img/favicon.png',
       }),
       new HtmlWebpackPlugin({
         hash: false,
         template: './src/train.html',
         filename: 'train.html',
+        favicon: './src/assets/img/favicon.png',
       }),
       new HtmlWebpackPlugin({
         hash: false,
         template: './src/play.html',
         filename: 'play.html',
+        favicon: './src/assets/img/favicon.png',
       }),
       new MiniCssExtractPlugin({
         filename: 'style.css',

@@ -1,133 +1,137 @@
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: $color-overlay;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $color-overlay;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
 }
 
 .modal {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    background-color: $color-light;
-    width: 70%;
-    height: 70%;
-    overflow: auto;
-    flex-direction: column;
-    z-index: 4;
-    h2{
-        color: $color-background-1;
-    }
-    img{
-        max-width: 70%;
-    }
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: $color-light;
+  width: 70%;
+  height: 70%;
+  overflow: auto;
+  flex-direction: column;
+  z-index: 4;
 
-    div{
-        color: #e1e8f0; 
-        font-family: "LatoBlack", sans-serif;
-    }
+  h2 {
+    color: $color-background-1;
+  }
 
-    .category-stats{
-        font-size: 30px;
-        font-weight: 900;
-    }
+  img {
+    max-width: 70%;
+  }
 
-    .category-stats:hover{
-        cursor: pointer;
-        animation: pulse-shrink 2s linear infinite;
-    }
+  div {
+    color: #e1e8f0;
+    font-family: "LatoBlack", sans-serif;
+  }
 
-    .categories-link{
-        color:$color-background-5;
-    }
+  .category-stats {
+    font-size: 30px;
+    font-weight: 900;
+  }
 
-    .category-name{
-        font-size: 30px;
-        font-weight: 900; 
-    }
+  .category-stats:hover {
+    cursor: pointer;
+    animation: pulse-shrink 2s linear infinite;
+  }
 
+  .categories-link {
+    color: $color-background-5;
+  }
+
+  .category-name {
+    font-size: 30px;
+    font-weight: 900;
+  }
 }
 
 .modal__close-icon {
-    position: absolute;
-    top: 1vw;
-    right: 5vw;
-    width: 10vw;
-    height: 10vw;
-    cursor: pointer;
+  position: absolute;
+  top: 1vw;
+  right: 5vw;
+  width: 10vw;
+  height: 10vw;
+  cursor: pointer;
 }
 
 .modal__reset-icon {
-    position: absolute;
-    top: 1vw;
-    left: 5vw;
-    width: 10vw;
-    height: 10vw;
-    cursor: pointer;
+  position: absolute;
+  top: 1vw;
+  left: 5vw;
+  width: 10vw;
+  height: 10vw;
+  cursor: pointer;
 }
 
 .modal__difficult-icon {
-    position: absolute;
-    top: 1vw;
-    left: 45%;
-    width: 10vw;
-    height: 10vw;
-    cursor: pointer;
+  position: absolute;
+  top: 1vw;
+  left: 45%;
+  width: 10vw;
+  height: 10vw;
+  cursor: pointer;
 }
 
-.table_stats{
-    position: relative;
-    margin-left:0;
+.table_stats {
+  position: relative;
+  margin-left: 0;
+  margin-top: 2vw;
+  display: grid;
+  grid-template-columns: repeat(7, 125px);
+  grid-template-rows: repeat(65, 30px);
+
+  @media (max-width: 1019px) {
     margin-top: 2vw;
-    display: grid;
-    grid-template-columns: repeat(7, 125px);
-    grid-template-rows: repeat(65, 30px);
-
-    @media (max-width: 1019px) {
-        margin-top: 2vw;
-        grid-template-columns: repeat(7, 13vw);
-        grid-template-rows: repeat(65, 3vw); 
-     }
-}
-.table_element{
-    font-size: 18px;
-    border:1px solid #e1e8f0;
-    @media (max-width: 1019px) {
-        font-size: 1.5vw; 
-     }
+    grid-template-columns: repeat(7, 13vw);
+    grid-template-rows: repeat(65, 3vw);
+  }
 }
 
-.table_header:hover{
-    cursor: pointer;
-    color: $color-background-5;
+.table_element {
+  font-size: 18px;
+  border: 1px solid #e1e8f0;
+
+  @media (max-width: 1019px) {
+    font-size: 1.5vw;
+  }
 }
 
-.modal_all-stats{
-    margin-top: 80px;
-    padding-top: 10vw;
-    width: 100%;
-    max-width: 1020px;
-    justify-content: normal;
+.table_header:hover {
+  cursor: pointer;
+  color: $color-background-5;
 }
 
-.modal__close-icon:hover{
-    animation: pulse-shrink 2s linear infinite;
-    cursor: pointer;
-}
-.modal__reset-icon:hover{
-    animation: pulse-shrink 2s linear infinite;
-    cursor: pointer;
+.modal_all-stats {
+  margin-top: 80px;
+  padding-top: 10vw;
+  width: 100%;
+  max-width: 1020px;
+  justify-content: normal;
 }
 
-.modal__difficult-icon:hover{
-    animation: pulse-shrink 2s linear infinite;
-    cursor: pointer;
+.modal__close-icon:hover {
+  animation: pulse-shrink 2s linear infinite;
+  cursor: pointer;
+}
+
+.modal__reset-icon:hover {
+  animation: pulse-shrink 2s linear infinite;
+  cursor: pointer;
+}
+
+.modal__difficult-icon:hover {
+  animation: pulse-shrink 2s linear infinite;
+  cursor: pointer;
 }

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { pageStatus, appStats } from './constants';
 import {
   saveState, restoreState,
@@ -10,7 +11,7 @@ const hideTranslate = (child) => {
   child[2].classList.remove('button_hidden');
 };
 
-const reverseCardBeginState = () => {
+const reverseCardBeginState = (event) => {
   const card = event.currentTarget;
   card.classList.add('run-animation');
   function deleteAnimation() {
@@ -32,7 +33,7 @@ const reverseCard = (card) => {
   changeText(card.childNodes[1].childNodes);
   function createMouseleave() {
     card.classList.remove('run-animation');
-    card.addEventListener('mouseleave', reverseCardBeginState);
+    card.addEventListener('mouseleave', (event) => reverseCardBeginState(event));
   }
   setTimeout(createMouseleave, 1000);
 };
