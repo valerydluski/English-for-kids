@@ -63,3 +63,4 @@ export const pagesData = {
 
 export const mainImages = document.getElementById('main-images');
 export const navigation = document.getElementById('navigation');
+export const audioCollection = [];

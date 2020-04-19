@@ -1,5 +1,5 @@
 // script for play mode
-import { pageStatus, appStats } from './constants';
+import { pageStatus, appStats, audioCollection } from './constants';
 // eslint-disable-next-line import/no-cycle
 import {
   restoreState, saveState,
@@ -12,7 +12,6 @@ const buttonRepeat = document.createElement('img');
 let currentAudio;
 const indicator = document.createElement('div');
 let mistakesCounter;
-const audioCollection = [];
 export const modal = document.createElement('div');
 
 const playAudioForGame = (audio) => {
@@ -116,6 +115,10 @@ export const startPlay = (audio) => {
   audioChoice(audio);
 };
 
+export const createAudioForPlay = (str) => {
+  audioCollection.push(`https://wooordhunt.ru//data/sound/word/us/mp3/${str}.mp3`);
+};
+
 export const createButtonPlay = () => {
   createIndicatePanel();
   buttonPlay.className = 'button_play';
@@ -123,11 +126,6 @@ export const createButtonPlay = () => {
   wrapper.append(buttonPlay);
   createButtonRepeat();
   buttonPlay.addEventListener('click', startPlay);
-};
-
-
-export const createAudioForPlay = (str) => {
-  audioCollection.push(`https://wooordhunt.ru//data/sound/word/us/mp3/${str}.mp3`);
 };
 
 

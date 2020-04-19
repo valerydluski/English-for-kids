@@ -61,53 +61,44 @@ const modalDeleteChild = () => {
   }
 };
 
+const createComponent = (parent, elementClass, text, id) => {
+  const tag = document.createElement('div');
+  tag.className = `${elementClass}`;
+  if (text !== undefined) {
+    tag.textContent = `${text}`;
+  }
+  parent.append(tag);
+  if (id !== undefined) {
+    tag.id = `${id}`;
+  }
+  return tag;
+};
+
 const createAllStatsLink = () => {
   modalDeleteChild();
-  const allStatsLink = document.createElement('div');
-  allStatsLink.className = 'category-stats';
-  allStatsLink.textContent = 'All stats';
-  modal.append(allStatsLink);
-  allStatsLink.addEventListener('click', () => {
+  createComponent(modal, 'category-stats', 'All stats').addEventListener('click', () => {
     modalDeleteChild();
     createAllWord();
   });
 };
 
 const createNamePage = (text) => {
-  const statsCategory = document.createElement('div');
-  statsCategory.className = 'category-name';
-  statsCategory.textContent = text;
-  modal.append(statsCategory);
+  createComponent(modal, 'category-name', text);
 };
 
 const createTranslateModal = (text) => {
-  const translate = document.createElement('div');
-  translate.className = 'category-name';
-  translate.textContent = `translate: ${text}`;
-  modal.append(translate);
+  createComponent(modal, 'category-name', `translate: ${text}`);
 };
 
 const createTrainCount = (text) => {
-  const trainCount = document.createElement('div');
-  trainCount.className = 'category-name';
-  trainCount.textContent = `train: ${text}`;
-  modal.append(trainCount);
+  createComponent(modal, 'category-name', `train: ${text}`);
 };
 
 const createPlayCount = (correct, wrong, percent) => {
-  const correctCount = document.createElement('div');
-  const wrongCount = document.createElement('div');
-  correctCount.className = 'category-name';
-  wrongCount.className = 'category-name';
-  correctCount.textContent = `correct: ${correct}`;
-  wrongCount.textContent = `wrong: ${wrong}`;
-  modal.append(correctCount);
-  modal.append(wrongCount);
-  const percentCount = document.createElement('div');
-  percentCount.className = 'category-name';
-  percentCount.textContent = `percent: ${percent}%`;
+  createComponent(modal, 'category-name', `correct: ${correct}`);
+  createComponent(modal, 'category-name', `wrong: ${wrong}`);
   if (percent !== 0) {
-    modal.append(percentCount);
+    createComponent(modal, 'category-name', `percent: ${percent}%`);
   }
 };
 
@@ -126,12 +117,7 @@ const createStatsThisWords = (word) => {
 };
 
 const createStatsWords = (element, index) => {
-  const statsWord = document.createElement('div');
-  statsWord.className = 'category-stats';
-  statsWord.textContent = `${element}`;
-  statsWord.id = index;
-  modal.append(statsWord);
-  statsWord.addEventListener('click', (event) => {
+  createComponent(modal, 'category-stats', element, index).addEventListener('click', (event) => {
     createStatsThisWords(event.target.textContent);
   });
 };
@@ -154,25 +140,23 @@ const createCategoryWords = (category) => {
 
 
 const createElementTable = (text, key) => {
-  const elementTable = document.createElement('div');
-  elementTable.className = 'table_element';
   if (text === 'word') {
-    elementTable.classList.add('table_header');
+    createComponent(tableForAllStats, 'table_element table_header', text);
+    return;
   }
   if (key === 'category') {
-    elementTable.classList.add('table_header');
-    elementTable.addEventListener('click', () => {
+    createComponent(tableForAllStats, 'table_element table_header', text).addEventListener('click', () => {
       createCategoryWords(text);
     });
+    return;
   }
   if (key === 'name') {
-    elementTable.classList.add('table_header');
-    elementTable.addEventListener('click', () => {
+    createComponent(tableForAllStats, 'table_element table_header', text).addEventListener('click', () => {
       createStatsThisWords(text);
     });
+    return;
   }
-  elementTable.textContent = `${text}`;
-  tableForAllStats.append(elementTable);
+  createComponent(tableForAllStats, 'table_element', text);
 };
 
 const createAllWordsFields = (object) => {
@@ -219,15 +203,9 @@ const clickerHeader = (event) => {
 };
 
 const createHeaderTableElement = (element) => {
-  const headerElement = document.createElement('div');
-  headerElement.className = 'table_element';
-  headerElement.classList.add('table_header');
-  headerElement.id = `${element}`;
-  headerElement.textContent = `${element}`;
-  headerElement.addEventListener('click', (event) => {
+  createComponent(tableForAllStats, 'table_element table_header', element, element).addEventListener('click', (event) => {
     clickerHeader(event);
   });
-  tableForAllStats.append(headerElement);
 };
 
 const createDifficultWordsCollection = (colletion) => {
@@ -246,27 +224,27 @@ const createDifficultWordsCollection = (colletion) => {
 
 // eslint-disable-next-line prefer-const
 difficultListener = () => {
-  const difficultButton = document.getElementById('buttonDifficult');
+  const difficultButton = document.getElementById('button-difficult');
   difficultButton.addEventListener('click', () => {
     createDifficultWordsCollection(DigitalSort(allWords, 'error'));
   });
 };
 
+const createButton = (tag) => {
+  const button = document.createElement('img');
+  button.className = `modal__${tag}-icon`;
+  button.src = `./assets/img/${tag}.png`;
+  button.id = `button-${tag}`;
+  modal.append(button);
+};
+
 const createDifficultButton = () => {
-  const difficultButton = document.createElement('img');
-  difficultButton.className = 'modal__difficult-icon';
-  difficultButton.src = './assets/img/difficult.png';
-  difficultButton.id = 'buttonDifficult';
-  modal.append(difficultButton);
+  createButton('difficult');
   difficultListener();
 };
 
 const createResetButton = () => {
-  const resetButton = document.createElement('img');
-  resetButton.className = 'modal__reset-icon';
-  resetButton.src = './assets/img/reset.png';
-  resetButton.id = 'buttonReset';
-  modal.append(resetButton);
+  createButton('reset');
   resetListener();
 };
 
@@ -274,9 +252,7 @@ const createAllStatsHeader = () => {
   modal.classList.add('modal_all-stats');
   createDifficultButton();
   createResetButton();
-  tableForAllStats = document.createElement('div');
-  tableForAllStats.className = 'table_stats';
-  modal.append(tableForAllStats);
+  tableForAllStats = createComponent(modal, 'table_stats');
   arrForTableHeader.forEach((element) => {
     createHeaderTableElement(element);
   });
@@ -307,7 +283,7 @@ const resetStats = () => {
 };
 
 resetListener = () => {
-  const resetButton = document.getElementById('buttonReset');
+  const resetButton = document.getElementById('button-reset');
   resetButton.addEventListener('click', () => {
     restoreState();
     resetStats();
