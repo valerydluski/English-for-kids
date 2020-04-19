@@ -277,6 +277,7 @@ const firstPage = () => {
   if (!checkActivePage()) {
     pageStatus.category = 'Main Page';
     pageStatus.pageMode = 'train';
+    modeSwitch('train');
     saveState();
     statsListener();
   }

@@ -24,6 +24,13 @@ navigation.addEventListener('mousedown', (event) => {
       addMainCards(pagesData[`${category}`][0], pagesData[`${category}`][1], pageStatus.pageMode, pagesData[`${category}`][2]);
       activeLink();
     }
+  } else if (classes.contains('navigation__link')) {
+    changeCategory(event.target.textContent);
+    if (event.target.textContent === 'Main Page') {
+      window.location.href = 'index.html';
+      return;
+    }
+    window.location.href = 'play.html';
   }
 });
 
